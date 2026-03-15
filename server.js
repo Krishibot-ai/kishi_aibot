@@ -1,6 +1,6 @@
 // ============================================================
 //  KrishiBot — Backend Server (Render par deploy karo)
-//  Gemini 1.5 Flash API integrated
+//  Gemini 1.5-Flash-latest API integrated
 // ============================================================
 
 const express = require('express');
@@ -117,7 +117,7 @@ app.post('/api/chat-image', async (req, res) => {
     if (text)         parts.push({ text });
 
     const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`,
       {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
