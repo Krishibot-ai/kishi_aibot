@@ -25,7 +25,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#
 .hbtns{display:flex;gap:5px;align-items:center;flex-shrink:0}
 #installBtn{display:none;align-items:center;gap:4px;background:linear-gradient(135deg,#22c55e,#16a34a);border:none;border-radius:14px;padding:5px 9px;color:#fff;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit}
 #installBtn.show{display:flex}
-.hico-btn{background:rgba(255,255,255,0.1);border:none;border-radius:50%;width:28px;height:28px;color:#fff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+.hico-btn{background:rgba(255,255,255,0.1);border:none;border-radius:10px;width:36px;padding:4px 2px;color:#fff;cursor:pointer;font-size:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.hico-lbl{font-size:7px;color:#86efac;font-weight:700;line-height:1;white-space:nowrap;font-family:inherit}
 #userBadge{background:rgba(34,197,94,0.2);border:1px solid rgba(34,197,94,0.4);border-radius:14px;padding:3px 8px;font-size:10px;color:#4ade80;display:none;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #userBadge.show{display:block}
 #offlineBanner{display:none;background:rgba(239,68,68,0.15);border-top:1px solid rgba(239,68,68,0.3);padding:6px 12px;text-align:center;font-size:11px;color:#fca5a5;flex-shrink:0}
@@ -172,6 +173,15 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#
 .calc-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(34,197,94,0.07);font-size:11px}
 .calc-row .cl{color:#86efac}
 .calc-row .cv{color:#e8f5e9;font-weight:600}
+/* Mandi Modal */
+.mandi-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.mandi-card{background:rgba(180,83,9,0.1);border:1px solid rgba(180,83,9,0.25);border-radius:12px;padding:12px;text-align:center}
+.mandi-card .mc-emoji{font-size:22px;margin-bottom:4px}
+.mandi-card .mc-name{color:#fed7aa;font-size:12px;font-weight:700;margin-bottom:4px}
+.mandi-card .mc-price{color:#fb923c;font-size:18px;font-weight:800}
+.mandi-card .mc-unit{color:rgba(254,215,170,0.5);font-size:9px;margin-top:2px}
+.mandi-card .mc-change{font-size:10px;margin-top:3px}
+.mandi-note{background:rgba(180,83,9,0.08);border:1px solid rgba(180,83,9,0.2);border-radius:10px;padding:10px;margin-top:12px;font-size:11px;color:#fed7aa;line-height:1.7;text-align:center}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
 ::-webkit-scrollbar{width:3px}
@@ -194,32 +204,32 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#
     <div id="adminData" style="display:none">
       <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto">
         <button class="atab active" id="tab1" onclick="showTab(1)">📊 Overview</button>
-        <button class="atab" id="tab2" onclick="showTab(2)">👥 Kisaan</button>
+        <button class="atab" id="tab2" onclick="showTab(2)">👥 किसान</button>
         <button class="atab" id="tab3" onclick="showTab(3)">💰 Revenue</button>
-        <button class="atab" id="tab4" onclick="showTab(4)">📋 Topics</button>
+        <button class="atab" id="tab4" onclick="showTab(4)">📋 विषय</button>
       </div>
       <div id="adminTab1">
         <div class="stat-grid">
-          <div class="stat-card"><div class="stat-val" id="totalUsers">0</div><div class="stat-lbl">Total Users</div></div>
-          <div class="stat-card"><div class="stat-val" id="totalMsgs">0</div><div class="stat-lbl">Messages</div></div>
+          <div class="stat-card"><div class="stat-val" id="totalUsers">0</div><div class="stat-lbl">कुल उपयोगकर्ता</div></div>
+          <div class="stat-card"><div class="stat-val" id="totalMsgs">0</div><div class="stat-lbl">संदेश</div></div>
           <div class="stat-card"><div class="stat-val" id="todayUsers">0</div><div class="stat-lbl">Aaj</div></div>
-          <div class="stat-card"><div class="stat-val" id="totalSessions">0</div><div class="stat-lbl">Sessions</div></div>
+          <div class="stat-card"><div class="stat-val" id="totalSessions">0</div><div class="stat-lbl">सत्र</div></div>
         </div>
         <div class="stat-grid">
-          <div class="stat-card"><div class="stat-val" id="totalRegistered" style="color:#60a5fa">0</div><div class="stat-lbl">Registered</div></div>
-          <div class="stat-card"><div class="stat-val" id="totalPaid" style="color:#facc15">0</div><div class="stat-lbl">Paid</div></div>
-          <div class="stat-card"><div class="stat-val" id="totalRevenue" style="color:#fb923c">Rs.0</div><div class="stat-lbl">Revenue</div></div>
-          <div class="stat-card"><div class="stat-val" id="avgMsgs" style="color:#c084fc">0</div><div class="stat-lbl">Avg/User</div></div>
+          <div class="stat-card"><div class="stat-val" id="totalRegistered" style="color:#60a5fa">0</div><div class="stat-lbl">पंजीकृत</div></div>
+          <div class="stat-card"><div class="stat-val" id="totalPaid" style="color:#facc15">0</div><div class="stat-lbl">भुगतान किया</div></div>
+          <div class="stat-card"><div class="stat-val" id="totalRevenue" style="color:#fb923c">Rs.0</div><div class="stat-lbl">आमदनी</div></div>
+          <div class="stat-card"><div class="stat-val" id="avgMsgs" style="color:#c084fc">0</div><div class="stat-lbl">औसत/यूजर</div></div>
         </div>
-        <div class="admin-section"><h3>LANGUAGE USE</h3><div id="langStats" style="font-size:12px;color:#86efac;line-height:2;background:rgba(34,197,94,0.04);border-radius:10px;padding:10px">Hindi: Sabhi Users</div></div>
+        <div class="admin-section"><h3>भाषा उपयोग</h3><div id="langStats" style="font-size:12px;color:#86efac;line-height:2;background:rgba(34,197,94,0.04);border-radius:10px;padding:10px">Hindi: Sabhi Users</div></div>
       </div>
       <div id="adminTab2" style="display:none">
         <input id="farmerSearch" class="minp" style="margin-bottom:8px;font-size:12px;padding:7px 11px" placeholder="Search naam/gaon/fasal..." oninput="filterFarmers()"/>
         <div id="farmerCount" style="font-size:11px;color:#86efac;margin-bottom:8px"></div>
         <div id="farmerCards" style="max-height:320px;overflow-y:auto"></div>
         <div style="margin-top:10px;display:flex;gap:8px">
-          <button style="flex:1;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:10px;padding:8px;color:#25D366;font-size:11px;cursor:pointer;font-family:inherit" onclick="exportCSV()">📥 CSV Export</button>
-          <button style="flex:1;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:10px;padding:8px;color:#60a5fa;font-size:11px;cursor:pointer;font-family:inherit" onclick="shareKisaanList()">💚 WA List</button>
+          <button style="flex:1;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:10px;padding:8px;color:#25D366;font-size:11px;cursor:pointer;font-family:inherit" onclick="exportCSV()">📥 CSV डाउनलोड</button>
+          <button style="flex:1;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:10px;padding:8px;color:#60a5fa;font-size:11px;cursor:pointer;font-family:inherit" onclick="shareKisaanList()">💚 WA सूची</button>
         </div>
       </div>
       <div id="adminTab3" style="display:none">
@@ -229,18 +239,103 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#
           <div class="stat-card"><div class="stat-val" id="rev449" style="color:#fb923c">0</div><div class="stat-lbl">Rs.449 Plans</div></div>
           <div class="stat-card"><div class="stat-val" id="totalRevenue2" style="color:#f87171">Rs.0</div><div class="stat-lbl">Total</div></div>
         </div>
-        <div class="admin-section"><h3>PAYMENT HISTORY</h3><div id="payHistory" style="font-size:12px;color:#86efac;line-height:2;max-height:200px;overflow-y:auto;background:rgba(34,197,94,0.04);border-radius:10px;padding:10px">Koi payment nahi</div></div>
-        <div class="admin-section"><h3>CONVERSION RATE</h3><div id="convRate" style="font-size:14px;color:#4ade80;padding:12px;background:rgba(34,197,94,0.06);border-radius:10px;text-align:center;font-weight:700">0%</div></div>
+        <div class="admin-section"><h3>भुगतान इतिहास</h3><div id="payHistory" style="font-size:12px;color:#86efac;line-height:2;max-height:200px;overflow-y:auto;background:rgba(34,197,94,0.04);border-radius:10px;padding:10px">कोई भुगतान नहीं</div></div>
+        <div class="admin-section"><h3>रूपांतरण दर</h3><div id="convRate" style="font-size:14px;color:#4ade80;padding:12px;background:rgba(34,197,94,0.06);border-radius:10px;text-align:center;font-weight:700">0%</div></div>
       </div>
       <div id="adminTab4" style="display:none">
-        <div class="admin-section"><h3>TOPIC WISE USAGE</h3><div id="topicStats"><div style="color:#86efac;font-size:11px">Koi data nahi</div></div></div>
-        <div class="admin-section"><h3>TOP 3 TOPICS</h3><div id="topTopics" style="font-size:14px;color:#4ade80;line-height:2.5;font-weight:700">-</div></div>
+        <div class="admin-section"><h3>विषयवार उपयोग</h3><div id="topicStats"><div style="color:#86efac;font-size:11px">Koi data nahi</div></div></div>
+        <div class="admin-section"><h3>शीर्ष 3 विषय</h3><div id="topTopics" style="font-size:14px;color:#4ade80;line-height:2.5;font-weight:700">-</div></div>
       </div>
       <div style="margin-top:12px;display:flex;gap:7px">
-        <button class="admin-reset" style="flex:1" onclick="resetStats()">🗑️ Reset</button>
-        <button style="flex:1;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:10px;padding:8px;color:#60a5fa;font-size:12px;cursor:pointer;font-family:inherit" onclick="loadAdminData()">🔄 Refresh</button>
+        <button class="admin-reset" style="flex:1" onclick="resetStats()">🗑️ रीसेट</button>
+        <button style="flex:1;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:10px;padding:8px;color:#60a5fa;font-size:12px;cursor:pointer;font-family:inherit" onclick="loadAdminData()">🔄 रिफ्रेश</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- MANDI BHAV MODAL -->
+<div class="modal-overlay" id="mandiModal">
+  <div class="modal-box">
+    <h2>💰 मंडी भाव <button class="mclose" onclick="document.getElementById('mandiModal').classList.remove('show')">✕</button></h2>
+    <div class="msub">MSP 2024-25 — सरकारी न्यूनतम समर्थन मूल्य</div>
+    <div class="mandi-modal-grid">
+      <div class="mandi-card">
+        <div class="mc-emoji">🌾</div>
+        <div class="mc-name">गेहूँ</div>
+        <div class="mc-price">₹2,275</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#4ade80">↑ रबी फसल</div>
+      </div>
+      <div class="mandi-card">
+        <div class="mc-emoji">🌾</div>
+        <div class="mc-name">धान (सामान्य)</div>
+        <div class="mc-price">₹2,300</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#4ade80">↑ खरीफ फसल</div>
+      </div>
+      <div class="mandi-card">
+        <div class="mc-emoji">🫘</div>
+        <div class="mc-name">सोयाबीन</div>
+        <div class="mc-price">₹4,892</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#4ade80">↑ खरीफ फसल</div>
+      </div>
+      <div class="mandi-card">
+        <div class="mc-emoji">🌽</div>
+        <div class="mc-name">मक्का</div>
+        <div class="mc-price">₹2,225</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#4ade80">↑ खरीफ फसल</div>
+      </div>
+      <div class="mandi-card">
+        <div class="mc-emoji">🥜</div>
+        <div class="mc-name">चना</div>
+        <div class="mc-price">₹5,440</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#4ade80">↑ रबी फसल</div>
+      </div>
+      <div class="mandi-card">
+        <div class="mc-emoji">🌻</div>
+        <div class="mc-name">सरसों</div>
+        <div class="mc-price">₹5,950</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#4ade80">↑ रबी फसल</div>
+      </div>
+      <div class="mandi-card">
+        <div class="mc-emoji">🥜</div>
+        <div class="mc-name">मूँगफली</div>
+        <div class="mc-price">₹6,783</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#4ade80">↑ खरीफ फसल</div>
+      </div>
+      <div class="mandi-card">
+        <div class="mc-emoji">🌿</div>
+        <div class="mc-name">मूँग दाल</div>
+        <div class="mc-price">₹8,682</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#4ade80">↑ खरीफ फसल</div>
+      </div>
+      <div class="mandi-card">
+        <div class="mc-emoji">🌿</div>
+        <div class="mc-name">उड़द</div>
+        <div class="mc-price">₹7,400</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#4ade80">↑ खरीफ फसल</div>
+      </div>
+      <div class="mandi-card">
+        <div class="mc-emoji">🎋</div>
+        <div class="mc-name">गन्ना (SAP)</div>
+        <div class="mc-price">₹340</div>
+        <div class="mc-unit">/क्विंटल</div>
+        <div class="mc-change" style="color:#fde68a">→ राज्यवार</div>
+      </div>
+    </div>
+    <div class="mandi-note">
+      📌 ये सरकारी MSP भाव हैं — असली मंडी भाव अलग हो सकते हैं<br/>
+      📞 मंडी भाव जानने के लिए: <strong style="color:#fb923c">1800-270-0224</strong> (मंडी हेल्पलाइन)
+    </div>
+    <button class="mpbtn" style="margin-top:12px" onclick="document.getElementById('mandiModal').classList.remove('show');if(!chatScreen.classList.contains('show'))showChat('मंडी भाव');addUserMsg('आज के मंडी भाव और MSP की जानकारी दो');callGemini('आज के प्रमुख फसलों के मंडी भाव और MSP 2024-25 की तुलना करो। किसान को क्या करना चाहिए?')">💬 AI से मंडी सलाह लें</button>
   </div>
 </div>
 
@@ -261,14 +356,14 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#
 <!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal-box">
-    <h2>👨‍🌾 KrishiBot Mein Swagat!</h2>
-    <div class="msub">Apni jankari den — sateek salah milegi</div>
-    <input class="minp" id="loginName" placeholder="Aapka Naam (jaise: Ramlal Patel)" type="text"/>
-    <input class="minp" id="loginVillage" placeholder="Gaon / Jila (jaise: Sagar, MP)" type="text"/>
-    <input class="minp" id="loginCrop" placeholder="Mukhya Fasal (jaise: Gehun, Dhan)" type="text"/>
-    <input class="minp" id="loginPhone" placeholder="Mobile Number (Optional)" type="tel"/>
-    <button class="mpbtn" onclick="saveLogin()">✅ Shuru Karen — Free!</button>
-    <button class="msbtn" onclick="document.getElementById('loginModal').classList.remove('show')">Baad mein →</button>
+    <h2>👨‍🌾 KrishiBot में स्वागत है!</h2>
+    <div class="msub">अपनी जानकारी दें — सटीक सलाह मिलेगी</div>
+    <input class="minp" id="loginName" placeholder="आपका नाम (जैसे: रामलाल पटेल)" type="text"/>
+    <input class="minp" id="loginVillage" placeholder="गाँव / जिला (जैसे: सागर, MP)" type="text"/>
+    <input class="minp" id="loginCrop" placeholder="मुख्य फसल (जैसे: गेहूँ, धान)" type="text"/>
+    <input class="minp" id="loginPhone" placeholder="मोबाइल नंबर (वैकल्पिक)" type="tel"/>
+    <button class="mpbtn" onclick="saveLogin()">✅ शुरू करें — बिल्कुल फ्री!</button>
+    <button class="msbtn" onclick="document.getElementById('loginModal').classList.remove('show')">बाद में →</button>
   </div>
 </div>
 
@@ -276,65 +371,65 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#
 <div class="modal-overlay" id="payModal">
   <div class="modal-box" style="text-align:center">
     <h2 style="justify-content:center">💰 KrishiBot Premium</h2>
-    <div class="msub">Seemit Samay Offer — Abhi Subscribe Karen</div>
+    <div class="msub">सीमित समय ऑफर — अभी सब्सक्राइब करें</div>
     <div class="pay-plans">
-      <div class="pay-plan" onclick="selectPlan(this,99,'1 Mahina')"><div class="pp">₹99</div><div class="pd">1 Mahina</div><div class="pt">Basic</div></div>
-      <div class="pay-plan best" onclick="selectPlan(this,249,'3 Mahine')"><div class="pp">₹249</div><div class="pd">3 Mahine</div><div class="pt">⭐ Best</div></div>
-      <div class="pay-plan" onclick="selectPlan(this,449,'6 Mahine')"><div class="pp">₹449</div><div class="pd">6 Mahine</div><div class="pt">Save 25%</div></div>
+      <div class="pay-plan" onclick="selectPlan(this,99,'1 महीना')"><div class="pp">₹99</div><div class="pd">1 महीना</div><div class="pt">बेसिक</div></div>
+      <div class="pay-plan best" onclick="selectPlan(this,249,'3 महीने')"><div class="pp">₹249</div><div class="pd">3 महीने</div><div class="pt">⭐ बेस्ट</div></div>
+      <div class="pay-plan" onclick="selectPlan(this,449,'6 महीने')"><div class="pp">₹449</div><div class="pd">6 महीने</div><div class="pt">25% बचत</div></div>
     </div>
     <div class="pay-upi">
-      <div class="upi-label">UPI se Payment Karen 👇</div>
+      <div class="upi-label">UPI से भुगतान करें 👇</div>
       <div class="upi-id" id="upiDisplay">krishibot@upi</div>
       <div class="upi-hint">Google Pay / PhonePe / Paytm</div>
     </div>
-    <button class="pay-wa" onclick="payConfirmWA()">💚 WhatsApp par Confirm Karen</button>
-    <button class="msbtn" onclick="document.getElementById('payModal').classList.remove('show')">Baad mein</button>
+    <button class="pay-wa" onclick="payConfirmWA()">💚 WhatsApp पर कन्फर्म करें</button>
+    <button class="msbtn" onclick="document.getElementById('payModal').classList.remove('show')">बाद में</button>
   </div>
 </div>
 
 <!-- FASAL CALCULATOR MODAL -->
 <div class="modal-overlay" id="calcModal">
   <div class="modal-box">
-    <h2>📊 Fasal Calculator <button class="mclose" onclick="document.getElementById('calcModal').classList.remove('show')">✕</button></h2>
-    <div class="msub">1 Acre mein kharcha, kamai aur munafa janen</div>
+    <h2>📊 फसल कैलकुलेटर <button class="mclose" onclick="document.getElementById('calcModal').classList.remove('show')">✕</button></h2>
+    <div class="msub">1 एकड़ में खर्चा, कमाई और मुनाफा जानें</div>
     <select id="calcCrop" class="minp" onchange="updateCalcData()" style="cursor:pointer">
-      <option value="">-- Fasal Chunen --</option>
-      <option value="gehun">🌾 Gehun</option>
-      <option value="dhan">🌾 Dhan</option>
-      <option value="soybean">🫘 Soybean</option>
-      <option value="makka">🌽 Makka</option>
-      <option value="chana">🥜 Chana</option>
-      <option value="sarso">🌻 Sarson</option>
-      <option value="pyaj">🧅 Pyaj</option>
-      <option value="aloo">🥔 Aloo</option>
-      <option value="tamatar">🍅 Tamatar</option>
-      <option value="ganna">🎋 Ganna</option>
+      <option value="">-- फसल चुनें --</option>
+      <option value="gehun">🌾 गेहूँ</option>
+      <option value="dhan">🌾 धान</option>
+      <option value="soybean">🫘 सोयाबीन</option>
+      <option value="makka">🌽 मक्का</option>
+      <option value="chana">🥜 चना</option>
+      <option value="sarso">🌻 सरसों</option>
+      <option value="pyaj">🧅 प्याज</option>
+      <option value="aloo">🥔 आलू</option>
+      <option value="tamatar">🍅 टमाटर</option>
+      <option value="ganna">🎋 गन्ना</option>
     </select>
     <div style="display:flex;gap:8px;margin-bottom:10px">
-      <div style="flex:1"><div style="font-size:10px;color:#86efac;margin-bottom:4px">Acre</div><input class="minp" id="calcAcre" type="number" value="1" min="0.5" max="100" step="0.5" style="margin:0" oninput="calcProfit()"/></div>
-      <div style="flex:1"><div style="font-size:10px;color:#86efac;margin-bottom:4px">Bhav Rs./Quintal</div><input class="minp" id="calcPrice" type="number" placeholder="Mandi Bhav" style="margin:0" oninput="calcProfit()"/></div>
+      <div style="flex:1"><div style="font-size:10px;color:#86efac;margin-bottom:4px">एकड़</div><input class="minp" id="calcAcre" type="number" value="1" min="0.5" max="100" step="0.5" style="margin:0" oninput="calcProfit()"/></div>
+      <div style="flex:1"><div style="font-size:10px;color:#86efac;margin-bottom:4px">भाव रु./क्विंटल</div><input class="minp" id="calcPrice" type="number" placeholder="मंडी भाव" style="margin:0" oninput="calcProfit()"/></div>
     </div>
     <div id="calcResult" style="display:none">
       <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:14px;padding:14px;margin-bottom:10px">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <div style="text-align:center;background:rgba(239,68,68,0.08);border-radius:10px;padding:10px">
-            <div style="font-size:10px;color:#fca5a5;margin-bottom:3px">💸 Kul Kharcha</div>
-            <div style="font-size:18px;font-weight:800;color:#f87171" id="calcExpense">Rs.0</div>
+            <div style="font-size:10px;color:#fca5a5;margin-bottom:3px">💸 कुल खर्चा</div>
+            <div style="font-size:18px;font-weight:800;color:#f87171" id="calcExpense">₹0</div>
           </div>
           <div style="text-align:center;background:rgba(34,197,94,0.08);border-radius:10px;padding:10px">
-            <div style="font-size:10px;color:#86efac;margin-bottom:3px">💰 Kul Kamai</div>
-            <div style="font-size:18px;font-weight:800;color:#4ade80" id="calcIncome">Rs.0</div>
+            <div style="font-size:10px;color:#86efac;margin-bottom:3px">💰 कुल कमाई</div>
+            <div style="font-size:18px;font-weight:800;color:#4ade80" id="calcIncome">₹0</div>
           </div>
         </div>
         <div style="text-align:center;margin-top:10px;background:rgba(250,204,21,0.08);border-radius:10px;padding:10px">
-          <div style="font-size:10px;color:#fde68a;margin-bottom:3px">🏆 Shuddh Munafa</div>
-          <div style="font-size:22px;font-weight:800" id="calcProfitVal">Rs.0</div>
+          <div style="font-size:10px;color:#fde68a;margin-bottom:3px">🏆 शुद्ध मुनाफा</div>
+          <div style="font-size:22px;font-weight:800" id="calcProfitVal">₹0</div>
         </div>
       </div>
       <div id="calcBreakdown" style="font-size:11px;color:#86efac;background:rgba(34,197,94,0.04);border-radius:10px;padding:12px;line-height:2.2"></div>
-      <button class="mpbtn" style="margin-top:10px" onclick="sendCalcToChat()">💬 AI se aur Salah Lo</button>
+      <button class="mpbtn" style="margin-top:10px" onclick="sendCalcToChat()">💬 AI से और सलाह लें</button>
     </div>
-    <div id="calcEmpty" style="text-align:center;padding:20px;color:#86efac;font-size:13px">Upar se Fasal Chunen 👆</div>
+    <div id="calcEmpty" style="text-align:center;padding:20px;color:#86efac;font-size:13px">ऊपर से फसल चुनें 👆</div>
   </div>
 </div>
 
@@ -344,55 +439,42 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#
     <div class="avatar">🌾</div>
     <div class="hinfo">
       <div class="hname">KrishiBot — कृषि मित्र</div>
-      <div class="hstatus"><div class="sdot"></div><span class="stext" id="stext">Krishi Visheshagya AI • Online</span></div>
+      <div class="hstatus"><div class="sdot"></div><span class="stext" id="stext">कृषि विशेषज्ञ AI • ऑनलाइन</span></div>
     </div>
     <div class="hbtns">
       <span id="userBadge"></span>
-      <button id="installBtn">📲 Install</button>
-      <button class="hico-btn" id="calcBtn" title="Fasal Calculator">📊</button>
-      <button class="hico-btn" id="langBtn" title="Bhasha">🌐</button>
-      <button class="hico-btn" id="payBtn" title="Premium">💰</button>
-      <button class="hico-btn" id="adminBtn" title="Admin">⚙️</button>
+      <button id="installBtn">📲 इंस्टॉल</button>
+      <button class="hico-btn" id="mandiBtn" onclick="document.getElementById('mandiModal').classList.add('show')">💰<span class="hico-lbl">मंडी भाव</span></button>
+      <button class="hico-btn" id="calcBtn" onclick="document.getElementById('calcModal').classList.add('show')">📊<span class="hico-lbl">कैलकुलेटर</span></button>
+      <button class="hico-btn" id="langBtn" onclick="document.getElementById('langModal').classList.add('show')">🌐<span class="hico-lbl">भाषा</span></button>
+      <button class="hico-btn" id="payBtn" onclick="document.getElementById('payModal').classList.add('show')">💰<span class="hico-lbl">प्रीमियम</span></button>
+      <button class="hico-btn" id="adminBtn" onclick="document.getElementById('adminPanel').classList.add('show')">⚙️<span class="hico-lbl">एडमिन</span></button>
     </div>
   </div>
 
-  <div id="offlineBanner">📴 Internet nahi hai — Offline Mode mein hain</div>
+  <div id="offlineBanner">📴 इंटरनेट नहीं है — ऑफलाइन मोड में हैं</div>
 
   <div id="menuScreen">
     <div class="wcard">
       <div class="wemoji">👨‍🌾</div>
-      <div class="wtitle" id="welcomeTitle">Namaste Kisaan Bhai!</div>
-      <div class="wsub" id="welcomeSub">Aapka Digital Krishi Mitra<br/><strong style="color:#4ade80">Niche se Vishay Chunen 👇</strong></div>
-    </div>
-    <div class="mandi-live">
-      <div class="mandi-hdr">
-        <span class="mandi-hdr-title">💰 MSP 2024-25 (Sarkari Bhav)</span>
-        <span class="mandi-hdr-time" id="mandiTime">Abhi</span>
-      </div>
-      <div class="mandi-prices">
-        <div class="mp-item"><div class="mp-crop">Gehun</div><div class="mp-price">₹2,275</div><div class="mp-unit">/Quintal</div></div>
-        <div class="mp-item"><div class="mp-crop">Dhan</div><div class="mp-price">₹2,300</div><div class="mp-unit">/Quintal</div></div>
-        <div class="mp-item"><div class="mp-crop">Soybean</div><div class="mp-price">₹4,892</div><div class="mp-unit">/Quintal</div></div>
-        <div class="mp-item"><div class="mp-crop">Makka</div><div class="mp-price">₹2,225</div><div class="mp-unit">/Quintal</div></div>
-        <div class="mp-item"><div class="mp-crop">Chana</div><div class="mp-price">₹5,440</div><div class="mp-unit">/Quintal</div></div>
-        <div class="mp-item"><div class="mp-crop">Sarson</div><div class="mp-price">₹5,950</div><div class="mp-unit">/Quintal</div></div>
-      </div>
+      <div class="wtitle" id="welcomeTitle">नमस्ते किसान भाई!</div>
+      <div class="wsub" id="welcomeSub">आपका डिजिटल कृषि मित्र<br/><strong style="color:#4ade80">नीचे से विषय चुनें 👇</strong></div>
     </div>
     <div class="weather-widget">
       <div class="ww-icon" id="wwIcon">🌤️</div>
       <div class="ww-info">
         <div class="ww-temp" id="wwTemp">--°C</div>
-        <div class="ww-desc" id="wwDesc">Mausam jankari load ho rahi hai...</div>
-        <div class="ww-advice" id="wwAdvice">📍 Location Allow karen — kheti ki salah milegi</div>
+        <div class="ww-desc" id="wwDesc">मौसम जानकारी लोड हो रही है...</div>
+        <div class="ww-advice" id="wwAdvice">📍 लोकेशन अनुमति दें — खेती की सलाह मिलेगी</div>
         <div class="ww-loc" id="wwLoc"></div>
       </div>
     </div>
-    <div class="mlabel">📋 KYA JANNA HAI?</div>
+    <div class="mlabel">📋 क्या जानना है?</div>
     <div class="ogrid" id="ogrid"></div>
     <div class="ftype">
-      <div class="flabel">✍️ Seedha Apni Samasya Likho:</div>
+      <div class="flabel">✍️ सीधे अपनी समस्या लिखें:</div>
       <div class="frow">
-        <input id="menuInput" placeholder="Yahan likho..." type="text"/>
+        <input id="menuInput" placeholder="यहाँ लिखें..." type="text"/>
         <button id="mSendBtn">➤</button>
       </div>
     </div>
@@ -400,35 +482,35 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(160deg,#
 
   <div id="subScreen">
     <div class="sub-back">
-      <button class="sub-back-btn" id="subBackBtn">← Wapas</button>
+      <button class="sub-back-btn" id="subBackBtn">← वापस</button>
       <span class="sub-title" id="subTitle"></span>
     </div>
-    <div class="sub-hint">Vishay Chunen 👇</div>
+    <div class="sub-hint">विषय चुनें 👇</div>
     <div class="sub-grid" id="subGrid"></div>
   </div>
 
   <div id="chatScreen"><div class="dlabel"><span class="dbadge" id="dateLabel"></span></div></div>
   <div id="chipsRow"></div>
   <div id="attachRow">
-    <button class="att-btn" onclick="triggerCamera()">📷 Camera</button>
-    <button class="att-btn" onclick="triggerPhoto()">🖼️ Photo</button>
-    <button class="att-btn" onclick="triggerFile()">📎 File</button>
-    <button class="att-btn" onclick="startVoice()">🎙️ Voice</button>
+    <button class="att-btn" onclick="triggerCamera()">📷 कैमरा</button>
+    <button class="att-btn" onclick="triggerPhoto()">🖼️ फोटो</button>
+    <button class="att-btn" onclick="triggerFile()">📎 फाइल</button>
+    <button class="att-btn" onclick="startVoice()">🎙️ आवाज़</button>
   </div>
   <div class="preview-bar" id="previewBar">
     <img id="previewImg" class="preview-img" src="" alt=""/>
-    <span class="preview-text" id="previewText">Photo tayar — Send karo!</span>
+    <span class="preview-text" id="previewText">फोटो तैयार — भेजें!</span>
     <button class="preview-remove" onclick="removePreview()">✕</button>
   </div>
   <div id="inputRow">
     <button class="plus-btn" id="plusBtn" onclick="toggleAttach()">+</button>
-    <input id="chatInput" placeholder="Yahan likho ya + dabao..." type="text"/>
+    <input id="chatInput" placeholder="यहाँ लिखें या + दबाएँ..." type="text"/>
     <button class="voice-btn" id="voiceBtn" onclick="startVoice()">🎙️</button>
     <button id="sendBtn">➤</button>
   </div>
   <div id="installBanner">
-    <div class="ibtext"><strong>📲 KrishiBot Install Karen!</strong><br/>App jaisa Home Screen par</div>
-    <button class="ibbtn" id="installBannerBtn">Install</button>
+    <div class="ibtext"><strong>📲 KrishiBot इंस्टॉल करें!</strong><br/>ऐप जैसा होम स्क्रीन पर</div>
+    <button class="ibbtn" id="installBannerBtn">इंस्टॉल करें</button>
     <button class="ibclose" id="installBannerClose">✕</button>
   </div>
 </div>
@@ -461,59 +543,59 @@ var LANG_SYSTEM = {
 var UI_TEXT = {
   hi: {
     botName: 'KrishiBot — कृषि मित्र',
-    statusOnline: 'Krishi Visheshagya AI • Online',
-    offlineBanner: '📴 Internet nahi hai — Offline Mode mein hain',
-    welcomeTitle: 'Namaste Kisaan Bhai!',
-    welcomeSub: 'Aapka Digital Krishi Mitra<br/><strong style="color:#4ade80">Niche se Vishay Chunen 👇</strong>',
-    mandiTitle: '💰 MSP 2024-25 (Sarkari Bhav)',
-    mandiNow: 'Abhi',
-    weatherLoading: 'Mausam jankari load ho rahi hai...',
-    weatherLocation: '📍 Location Allow karen — kheti ki salah milegi',
-    menuLabel: '📋 KYA JANNA HAI?',
-    menuInputPlaceholder: 'Yahan likho...',
-    menuInputLabel: '✍️ Seedha Apni Samasya Likho:',
-    chatInputPlaceholder: 'Yahan likho ya + dabao...',
-    voiceListening: 'Bol rahe hain...',
-    subHint: 'Vishay Chunen 👇',
-    subBackBtn: '← Wapas',
-    installBannerText: '<strong>📲 KrishiBot Install Karen!</strong><br/>App jaisa Home Screen par',
-    installBtn: 'Install',
-    calcTitle: '📊 Fasal Calculator',
-    calcSub: '1 Acre mein kharcha, kamai aur munafa janen',
-    calcCropLabel: '-- Fasal Chunen --',
-    calcAcreLabel: 'Acre',
-    calcPriceLabel: 'Bhav Rs./Quintal',
-    calcExpenseLabel: '💸 Kul Kharcha',
-    calcIncomeLabel: '💰 Kul Kamai',
-    calcProfitLabel: '🏆 Shuddh Munafa',
-    calcAIBtn: '💬 AI se aur Salah Lo',
-    calcEmptyText: 'Upar se Fasal Chunen 👆',
-    langTitle: '🌐 Bhasha Chunen',
-    langSub: 'Apni bhasha chunen — behtar jawab milega',
-    loginTitle: '👨‍🌾 KrishiBot Mein Swagat!',
-    loginSub: 'Apni jankari den — sateek salah milegi',
-    loginNamePh: 'Aapka Naam (jaise: Ramlal Patel)',
-    loginVillagePh: 'Gaon / Jila (jaise: Sagar, MP)',
-    loginCropPh: 'Mukhya Fasal (jaise: Gehun, Dhan)',
-    loginPhonePh: 'Mobile Number (Optional)',
-    loginBtn: '✅ Shuru Karen — Free!',
-    loginSkip: 'Baad mein →',
+    statusOnline: 'कृषि विशेषज्ञ AI • ऑनलाइन',
+    offlineBanner: '📴 इंटरनेट नहीं है — ऑफलाइन मोड में हैं',
+    welcomeTitle: 'नमस्ते किसान भाई!',
+    welcomeSub: 'आपका डिजिटल कृषि मित्र<br/><strong style="color:#4ade80">नीचे से विषय चुनें 👇</strong>',
+    mandiTitle: '💰 MSP 2024-25 (सरकारी भाव)',
+    mandiNow: 'अभी',
+    weatherLoading: 'मौसम जानकारी लोड हो रही है...',
+    weatherLocation: '📍 लोकेशन अनुमति दें — खेती की सलाह मिलेगी',
+    menuLabel: '📋 क्या जानना है?',
+    menuInputPlaceholder: 'यहाँ लिखें...',
+    menuInputLabel: '✍️ सीधे अपनी समस्या लिखें:',
+    chatInputPlaceholder: 'यहाँ लिखें या + दबाएँ...',
+    voiceListening: 'बोल रहे हैं...',
+    subHint: 'विषय चुनें 👇',
+    subBackBtn: '← वापस',
+    installBannerText: '<strong>📲 KrishiBot इंस्टॉल करें!</strong><br/>ऐप जैसा होम स्क्रीन पर',
+    installBtn: 'इंस्टॉल करें',
+    calcTitle: '📊 फसल कैलकुलेटर',
+    calcSub: '1 एकड़ में खर्चा, कमाई और मुनाफा जानें',
+    calcCropLabel: '-- फसल चुनें --',
+    calcAcreLabel: 'एकड़',
+    calcPriceLabel: 'भाव रु./क्विंटल',
+    calcExpenseLabel: '💸 कुल खर्चा',
+    calcIncomeLabel: '💰 कुल कमाई',
+    calcProfitLabel: '🏆 शुद्ध मुनाफा',
+    calcAIBtn: '💬 AI से और सलाह लें',
+    calcEmptyText: 'ऊपर से फसल चुनें 👆',
+    langTitle: '🌐 भाषा चुनें',
+    langSub: 'अपनी भाषा चुनें — बेहतर जवाब मिलेगा',
+    loginTitle: '👨‍🌾 KrishiBot में स्वागत है!',
+    loginSub: 'अपनी जानकारी दें — सटीक सलाह मिलेगी',
+    loginNamePh: 'आपका नाम (जैसे: रामलाल पटेल)',
+    loginVillagePh: 'गाँव / जिला (जैसे: सागर, MP)',
+    loginCropPh: 'मुख्य फसल (जैसे: गेहूँ, धान)',
+    loginPhonePh: 'मोबाइल नंबर (वैकल्पिक)',
+    loginBtn: '✅ शुरू करें — बिल्कुल फ्री!',
+    loginSkip: 'बाद में →',
     payTitle: '💰 KrishiBot Premium',
-    paySub: 'Seemit Samay Offer — Abhi Subscribe Karen',
-    payWABtn: '💚 WhatsApp par Confirm Karen',
-    paySkip: 'Baad mein',
-    upiLabel: 'UPI se Payment Karen 👇',
+    paySub: 'सीमित समय ऑफर — अभी सब्सक्राइब करें',
+    payWABtn: '💚 WhatsApp पर कन्फर्म करें',
+    paySkip: 'बाद में',
+    upiLabel: 'UPI से भुगतान करें 👇',
     upiHint: 'Google Pay / PhonePe / Paytm',
-    chips: ['Aur batao', 'Dawai ka naam', 'Kahan milegi', 'Kitna kharcha', 'Menu', 'Premium'],
-    attachCamera: '📷 Camera', attachPhoto: '🖼️ Photo', attachFile: '📎 File', attachVoice: '🎙️ Voice',
-    previewText: 'Photo tayar — Send karo!',
-    langChangedMsg: 'Bhasha badal gayi: {name} — Ab sabhi jawab Hindi mein milenge!',
-    dateToday: 'Aaj • ',
-    calcBreakdownItems: ['Beej Kharcha','Khad Kharcha','Dawai Kharcha','Sinchai Kharcha','Majdoori','Jotai','Katai','Upaj (Anumaanit)','MSP 2024-25'],
-    adminPassPh: '🔐 Password डालो',
-    adminLoginBtn: 'Login करो',
-    calcCropOptions: { gehun:'🌾 Gehun', dhan:'🌾 Dhan', soybean:'🫘 Soybean', makka:'🌽 Makka', chana:'🥜 Chana', sarso:'🌻 Sarson', pyaj:'🧅 Pyaj', aloo:'🥔 Aloo', tamatar:'🍅 Tamatar', ganna:'🎋 Ganna' },
-    mandiCrops: ['Gehun','Dhan','Soybean','Makka','Chana','Sarson'],
+    chips: ['और बताएं', 'दवाई का नाम', 'कहाँ मिलेगी', 'कितना खर्चा', 'मेनू', 'प्रीमियम'],
+    attachCamera: '📷 कैमरा', attachPhoto: '🖼️ फोटो', attachFile: '📎 फाइल', attachVoice: '🎙️ आवाज़',
+    previewText: 'फोटो तैयार — भेजें!',
+    langChangedMsg: 'भाषा बदल गई: {name} — अब सभी जवाब हिंदी में मिलेंगे!',
+    dateToday: 'आज • ',
+    calcBreakdownItems: ['बीज खर्चा','खाद खर्चा','दवाई खर्चा','सिंचाई खर्चा','मजदूरी','जुताई','कटाई','उपज (अनुमानित)','MSP 2024-25'],
+    adminPassPh: '🔐 पासवर्ड डालें',
+    adminLoginBtn: 'लॉगिन करें',
+    calcCropOptions: { gehun:'🌾 गेहूँ', dhan:'🌾 धान', soybean:'🫘 सोयाबीन', makka:'🌽 मक्का', chana:'🥜 चना', sarso:'🌻 सरसों', pyaj:'🧅 प्याज', aloo:'🥔 आलू', tamatar:'🍅 टमाटर', ganna:'🎋 गन्ना' },
+    mandiCrops: ['गेहूँ','धान','सोयाबीन','मक्का','चना','सरसों'],
   },
   bho: {
     botName: 'KrishiBot — कृषि मित्र',
@@ -685,159 +767,135 @@ var UI_TEXT = {
   }
 };
 
+function safeText(el, val) { try { if (el) el.textContent = val; } catch(e){} }
+function safeHTML(el, val) { try { if (el) el.innerHTML = val; } catch(e){} }
+function safeAttr(el, attr, val) { try { if (el) el[attr] = val; } catch(e){} }
+
 function applyLangUI() {
-  var t = UI_TEXT[currentLang] || UI_TEXT.hi;
+  try {
+    var t = UI_TEXT[currentLang] || UI_TEXT.hi;
 
-  // Header
-  var hn = document.querySelector('.hname');
-  if (hn) hn.textContent = t.botName;
-  if (stext) stext.textContent = t.statusOnline;
+    // Header
+    safeText(document.querySelector('.hname'), t.botName);
+    safeText(document.getElementById('stext'), t.statusOnline);
 
-  // Offline banner
-  var ob = document.getElementById('offlineBanner');
-  if (ob) ob.textContent = t.offlineBanner;
+    // Offline banner
+    safeText(document.getElementById('offlineBanner'), t.offlineBanner);
 
-  // Welcome card
-  var wt = document.getElementById('welcomeTitle');
-  if (wt && !document.querySelector('.hname + .hinfo .custom-welcome')) wt.textContent = t.welcomeTitle;
-  var ws = document.getElementById('welcomeSub');
-  if (ws) ws.innerHTML = t.welcomeSub;
+    // Welcome card
+    safeText(document.getElementById('welcomeTitle'), t.welcomeTitle);
+    safeHTML(document.getElementById('welcomeSub'), t.welcomeSub);
 
-  // Mandi header
-  var mht = document.querySelector('.mandi-hdr-title');
-  if (mht) mht.textContent = t.mandiTitle;
-  var mtime = document.getElementById('mandiTime');
-  if (mtime) mtime.textContent = t.mandiNow;
-  // Mandi crops
-  var mpCrops = document.querySelectorAll('.mp-crop');
-  t.mandiCrops.forEach(function(c, i) { if (mpCrops[i]) mpCrops[i].textContent = c; });
+    // Weather
+    var wd = document.getElementById('wwDesc');
+    if (wd) wd.textContent = t.weatherLoading;
+    var wa = document.getElementById('wwAdvice');
+    if (wa) wa.textContent = t.weatherLocation;
 
-  // Weather
-  var wd = document.getElementById('wwDesc');
-  if (wd && (wd.textContent.indexOf('load') > -1 || wd.textContent.indexOf('rahi') > -1 || wd.textContent.indexOf('hote') > -1 || wd.textContent.indexOf('bo rahl') > -1)) wd.textContent = t.weatherLoading;
-  var wa = document.getElementById('wwAdvice');
-  if (wa && wa.textContent.indexOf('Location') > -1) wa.textContent = t.weatherLocation;
+    // Menu label & input
+    safeText(document.querySelector('.mlabel'), t.menuLabel);
+    safeAttr(document.getElementById('menuInput'), 'placeholder', t.menuInputPlaceholder);
+    safeText(document.querySelector('.flabel'), t.menuInputLabel);
 
-  // Menu label
-  var ml = document.querySelector('.mlabel');
-  if (ml) ml.textContent = t.menuLabel;
+    // Chat input
+    safeAttr(document.getElementById('chatInput'), 'placeholder', t.chatInputPlaceholder);
 
-  // Menu input
-  var mi = document.getElementById('menuInput');
-  if (mi) mi.placeholder = t.menuInputPlaceholder;
-  var fl = document.querySelector('.flabel');
-  if (fl) fl.textContent = t.menuInputLabel;
+    // Sub screen
+    safeText(document.querySelector('.sub-hint'), t.subHint);
+    safeText(document.getElementById('subBackBtn'), t.subBackBtn);
 
-  // Chat input
-  var ci = document.getElementById('chatInput');
-  if (ci) ci.placeholder = t.chatInputPlaceholder;
+    // Install banner
+    safeHTML(document.querySelector('.ibtext'), t.installBannerText);
+    safeText(document.getElementById('installBannerBtn'), t.installBtn);
 
-  // Sub-screen hint
-  var sh = document.querySelector('.sub-hint');
-  if (sh) sh.textContent = t.subHint;
-  var sbb = document.getElementById('subBackBtn');
-  if (sbb) sbb.textContent = t.subBackBtn;
+    // Calculator modal — safe childNodes access
+    var calcH2 = document.querySelector('#calcModal h2');
+    if (calcH2 && calcH2.childNodes && calcH2.childNodes[0]) {
+      calcH2.childNodes[0].textContent = t.calcTitle + ' ';
+    }
+    safeText(document.querySelector('#calcModal .msub'), t.calcSub);
+    safeText(document.getElementById('calcEmpty'), t.calcEmptyText);
 
-  // Back button
-  if (backBtn) backBtn.textContent = '←';
+    // Calc crop dropdown
+    var calcCrop = document.getElementById('calcCrop');
+    if (calcCrop && calcCrop.options && calcCrop.options[0]) {
+      calcCrop.options[0].text = t.calcCropLabel;
+      var cropKeys = Object.keys(t.calcCropOptions);
+      cropKeys.forEach(function(key, i) {
+        if (calcCrop.options[i + 1]) calcCrop.options[i + 1].text = t.calcCropOptions[key];
+      });
+    }
 
-  // Install banner
-  var ibt = document.querySelector('.ibtext');
-  if (ibt) ibt.innerHTML = t.installBannerText;
-  var installBannerBtn = document.getElementById('installBannerBtn');
-  if (installBannerBtn) installBannerBtn.textContent = t.installBtn;
+    // Calc labels by ID — safest method
+    var calcExpEl = document.getElementById('calcExpense');
+    if (calcExpEl && calcExpEl.previousElementSibling) safeText(calcExpEl.previousElementSibling, t.calcExpenseLabel);
+    var calcIncEl = document.getElementById('calcIncome');
+    if (calcIncEl && calcIncEl.previousElementSibling) safeText(calcIncEl.previousElementSibling, t.calcIncomeLabel);
+    var calcProfEl = document.getElementById('calcProfitVal');
+    if (calcProfEl && calcProfEl.previousElementSibling) safeText(calcProfEl.previousElementSibling, t.calcProfitLabel);
 
-  // Calculator modal
-  var calcTitleEl = document.querySelector('#calcModal h2');
-  if (calcTitleEl) { calcTitleEl.childNodes[0].textContent = t.calcTitle + ' '; }
-  var calcSubEl = document.querySelector('#calcModal .msub');
-  if (calcSubEl) calcSubEl.textContent = t.calcSub;
-  var calcCrop = document.getElementById('calcCrop');
-  if (calcCrop) {
-    calcCrop.options[0].text = '-- ' + (t.calcCropLabel || t.calcCropLabel) + ' --';
-    var cropKeys = Object.keys(t.calcCropOptions);
-    cropKeys.forEach(function(key, i) { if (calcCrop.options[i+1]) calcCrop.options[i+1].text = t.calcCropOptions[key]; });
+    // Calc AI button — only first mpbtn inside calcModal
+    var calcMpBtns = document.querySelectorAll('#calcModal .mpbtn');
+    if (calcMpBtns && calcMpBtns.length > 0) safeText(calcMpBtns[calcMpBtns.length - 1], t.calcAIBtn);
+
+    // Language modal — safe childNodes
+    var langH2 = document.querySelector('#langModal h2');
+    if (langH2 && langH2.childNodes && langH2.childNodes[0]) {
+      langH2.childNodes[0].textContent = t.langTitle + ' ';
+    }
+    safeText(document.querySelector('#langModal .msub'), t.langSub);
+
+    // Login modal
+    safeText(document.querySelector('#loginModal h2'), t.loginTitle);
+    safeText(document.querySelector('#loginModal .msub'), t.loginSub);
+    safeAttr(document.getElementById('loginName'), 'placeholder', t.loginNamePh);
+    safeAttr(document.getElementById('loginVillage'), 'placeholder', t.loginVillagePh);
+    safeAttr(document.getElementById('loginCrop'), 'placeholder', t.loginCropPh);
+    safeAttr(document.getElementById('loginPhone'), 'placeholder', t.loginPhonePh);
+    safeText(document.querySelector('#loginModal .mpbtn'), t.loginBtn);
+    safeText(document.querySelector('#loginModal .msbtn'), t.loginSkip);
+
+    // Payment modal
+    safeText(document.querySelector('#payModal h2'), t.payTitle);
+    safeText(document.querySelector('#payModal .msub'), t.paySub);
+    safeText(document.querySelector('.pay-wa'), t.payWABtn);
+    safeText(document.querySelector('#payModal .msbtn'), t.paySkip);
+    safeText(document.querySelector('.upi-label'), t.upiLabel);
+    safeText(document.querySelector('.upi-hint'), t.upiHint);
+
+    // Attach row buttons
+    var attBtns = document.querySelectorAll('.att-btn');
+    if (attBtns.length >= 4) {
+      attBtns[0].textContent = t.attachCamera;
+      attBtns[1].textContent = t.attachPhoto;
+      attBtns[2].textContent = t.attachFile;
+      attBtns[3].textContent = t.attachVoice;
+    }
+
+    // Preview bar text
+    safeText(document.getElementById('previewText'), t.previewText);
+
+    // Chips
+    var chipBtns = document.querySelectorAll('.chip');
+    chipBtns.forEach(function(chip, i) { if (t.chips && t.chips[i]) chip.textContent = t.chips[i]; });
+
+    // Date label
+    safeText(document.getElementById('dateLabel'), t.dateToday + new Date().toLocaleDateString('hi-IN'));
+
+    // Admin
+    safeAttr(document.getElementById('adminPass'), 'placeholder', t.adminPassPh);
+    safeText(document.querySelector('#adminLogin .mpbtn'), t.adminLoginBtn);
+
+    // Page title
+    document.title = '🌾 ' + t.botName;
+
+    // Voice placeholders
+    window._voiceListeningText = t.voiceListening;
+    window._defaultInputPlaceholder = t.chatInputPlaceholder;
+
+  } catch(err) {
+    console.warn('applyLangUI error (non-critical):', err.message);
   }
-  var acreLbl = document.querySelector('#calcModal [style*="flex:1"]:first-child > div:first-child');
-  if (acreLbl) acreLbl.textContent = t.calcAcreLabel;
-  var priceLbl = document.querySelector('#calcModal [style*="flex:1"]:last-child > div:first-child');
-  if (priceLbl) priceLbl.textContent = t.calcPriceLabel;
-  var expLbl = document.querySelector('#calcExpense');
-  if (expLbl && expLbl.previousElementSibling) expLbl.previousElementSibling.textContent = t.calcExpenseLabel;
-  var incLbl = document.querySelector('#calcIncome');
-  if (incLbl && incLbl.previousElementSibling) incLbl.previousElementSibling.textContent = t.calcIncomeLabel;
-  var profLbl = document.querySelector('#calcProfitVal');
-  if (profLbl && profLbl.previousElementSibling) profLbl.previousElementSibling.textContent = t.calcProfitLabel;
-  var calcAIBtnEl = document.querySelector('#calcModal .mpbtn');
-  if (calcAIBtnEl) calcAIBtnEl.textContent = t.calcAIBtn;
-  var calcEmptyEl = document.getElementById('calcEmpty');
-  if (calcEmptyEl) calcEmptyEl.textContent = t.calcEmptyText;
-
-  // Language modal
-  var ltEl = document.querySelector('#langModal h2');
-  if (ltEl) { ltEl.childNodes[0].textContent = t.langTitle + ' '; }
-  var lsEl = document.querySelector('#langModal .msub');
-  if (lsEl) lsEl.textContent = t.langSub;
-
-  // Login modal
-  var loginTEl = document.querySelector('#loginModal h2');
-  if (loginTEl) loginTEl.textContent = t.loginTitle;
-  var loginSubEl = document.querySelector('#loginModal .msub');
-  if (loginSubEl) loginSubEl.textContent = t.loginSub;
-  var ln = document.getElementById('loginName'); if (ln) ln.placeholder = t.loginNamePh;
-  var lv = document.getElementById('loginVillage'); if (lv) lv.placeholder = t.loginVillagePh;
-  var lc = document.getElementById('loginCrop'); if (lc) lc.placeholder = t.loginCropPh;
-  var lph = document.getElementById('loginPhone'); if (lph) lph.placeholder = t.loginPhonePh;
-  var loginBtnEl = document.querySelector('#loginModal .mpbtn'); if (loginBtnEl) loginBtnEl.textContent = t.loginBtn;
-  var loginSkipEl = document.querySelector('#loginModal .msbtn'); if (loginSkipEl) loginSkipEl.textContent = t.loginSkip;
-
-  // Payment modal
-  var payTitleEl = document.querySelector('#payModal h2');
-  if (payTitleEl) payTitleEl.textContent = t.payTitle;
-  var paySubEl = document.querySelector('#payModal .msub');
-  if (paySubEl) paySubEl.textContent = t.paySub;
-  var payWABtnEl = document.querySelector('.pay-wa');
-  if (payWABtnEl) payWABtnEl.textContent = t.payWABtn;
-  var paySkipEl = document.querySelector('#payModal .msbtn');
-  if (paySkipEl) paySkipEl.textContent = t.paySkip;
-  var upiLblEl = document.querySelector('.upi-label');
-  if (upiLblEl) upiLblEl.textContent = t.upiLabel;
-  var upiHintEl = document.querySelector('.upi-hint');
-  if (upiHintEl) upiHintEl.textContent = t.upiHint;
-
-  // Attach row buttons
-  var attBtns = document.querySelectorAll('.att-btn');
-  if (attBtns.length >= 4) {
-    attBtns[0].textContent = t.attachCamera;
-    attBtns[1].textContent = t.attachPhoto;
-    attBtns[2].textContent = t.attachFile;
-    attBtns[3].textContent = t.attachVoice;
-  }
-
-  // Preview text
-  var prevTxt = document.getElementById('previewText');
-  if (prevTxt && prevTxt.textContent.indexOf('tayar') > -1) prevTxt.textContent = t.previewText;
-
-  // Chips
-  var chipBtns = document.querySelectorAll('.chip');
-  chipBtns.forEach(function(chip, i) { if (t.chips[i]) chip.textContent = t.chips[i]; });
-
-  // Date label
-  var dl = document.getElementById('dateLabel');
-  if (dl) dl.textContent = t.dateToday + new Date().toLocaleDateString('hi-IN');
-
-  // Admin password placeholder
-  var ap = document.getElementById('adminPass');
-  if (ap) ap.placeholder = t.adminPassPh;
-  var alb = document.querySelector('#adminLogin .mpbtn');
-  if (alb) alb.textContent = t.adminLoginBtn;
-
-  // Title tag
-  document.title = '🌾 ' + t.botName;
-
-  // Voice recording placeholder
-  window._voiceListeningText = t.voiceListening;
-  window._defaultInputPlaceholder = t.chatInputPlaceholder;
 }
 
 function setLang(code, name, voice) {
@@ -852,7 +910,7 @@ function setLang(code, name, voice) {
   applyLangUI();
   var t = UI_TEXT[code] || UI_TEXT.hi;
   var confirmMsg = t.langChangedMsg.replace('{name}', name);
-  if (!chatScreen.classList.contains('show')) showChat('Bhasha');
+  if (!chatScreen.classList.contains('show')) showChat('भाषा');
   addBotMsg(confirmMsg);
 }
 
@@ -876,8 +934,8 @@ function saveLogin() {
   for (var i = 0; i < s.registeredUsers.length; i++) { if (s.registeredUsers[i].name === name) { exists = true; break; } }
   if (!exists) s.registeredUsers.push(userData);
   saveStats(s);
-  if (!chatScreen.classList.contains('show')) showChat('Swagat');
-  addBotMsg('Swagat hai ' + name + ' ji! Gaon: ' + (village || 'aapke gaon') + ' se. Fasal: ' + (crop || 'Krishi') + '. KrishiBot aapki har samasya ka hal dega!');
+  if (!chatScreen.classList.contains('show')) showChat('स्वागत');
+  addBotMsg('स्वागत है ' + name + ' जी! गाँव: ' + (village || 'आपके गाँव') + ' से। फसल: ' + (crop || 'कृषि') + '। KrishiBot आपकी हर समस्या का हल देगा!');
 }
 
 function updateUserBadge() {
@@ -888,7 +946,7 @@ function updateUserBadge() {
 function updateWelcome() {
   if (!userData) return;
   var t = UI_TEXT[currentLang] || UI_TEXT.hi;
-  document.getElementById('welcomeTitle').textContent = (t.welcomeTitle.indexOf('Namaste') > -1 ? 'Namaste ' : t.welcomeTitle.split(' ')[0] + ' ') + userData.name.split(' ')[0] + ' ji!';
+  document.getElementById('welcomeTitle').textContent = (t.welcomeTitle.indexOf('Namaste') > -1 ? 'नमस्ते ' : t.welcomeTitle.split(' ')[0] + ' ') + userData.name.split(' ')[0] + ' जी!';
   document.getElementById('welcomeSub').innerHTML = (userData.crop ? '<strong style="color:#4ade80">Fasal: ' + userData.crop + '</strong> | ' : '') + (userData.village || '') + '<br/>' + t.subHint;
 }
 
@@ -949,7 +1007,7 @@ function checkAdmin() {
   } else {
     document.getElementById('adminPass').style.borderColor = '#ef4444';
     document.getElementById('adminPass').value = '';
-    document.getElementById('adminPass').placeholder = 'Galat Password!';
+    document.getElementById('adminPass').placeholder = '❌ गलत पासवर्ड!';
   }
 }
 function closeAdmin() {
@@ -957,7 +1015,7 @@ function closeAdmin() {
   document.getElementById('adminLogin').style.display = 'block';
   document.getElementById('adminData').style.display = 'none';
   document.getElementById('adminPass').value = '';
-  document.getElementById('adminPass').placeholder = 'Password dalo';
+  document.getElementById('adminPass').placeholder = '🔐 पासवर्ड डालें';
   document.getElementById('adminPass').style.borderColor = '';
 }
 function showTab(n) {
@@ -981,7 +1039,7 @@ function loadAdminData() {
   se('totalSessions', s.sessions || 0);
   se('totalRegistered', ru.length);
   se('totalPaid', s.paidUsers || 0);
-  se('totalRevenue', 'Rs.' + (s.revenue || 0));
+  se('totalRevenue', '₹' + (s.revenue || 0));
   se('avgMsgs', Math.round((s.msgs || 0) / u));
   var topics = s.topics || {};
   var sorted = Object.entries(topics).sort(function(a, b) { return b[1] - a[1]; });
@@ -1006,7 +1064,7 @@ function loadAdminData() {
   var lsEl = document.getElementById('langStats');
   if (lsEl) {
     var le = Object.entries(langs);
-    lsEl.innerHTML = le.length ? le.map(function(e) { return e[0] + ': ' + e[1] + ' users'; }).join('<br/>') : 'Hindi: Sabhi Users';
+    lsEl.innerHTML = le.length ? le.map(function(e) { return e[0] + ': ' + e[1] + ' उपयोगकर्ता'; }).join('<br/>') : 'हिंदी: सभी उपयोगकर्ता';
   }
 }
 function renderFarmerCards(filter) {
@@ -1018,7 +1076,7 @@ function renderFarmerCards(filter) {
            (u.crop || '').toLowerCase().indexOf(filter.toLowerCase()) > -1;
   }) : ru;
   var fcount = document.getElementById('farmerCount');
-  if (fcount) fcount.textContent = filtered.length + ' / ' + ru.length + ' Kisaan';
+  if (fcount) fcount.textContent = filtered.length + ' / ' + ru.length + ' किसान';
   if (!filtered.length) { fc.innerHTML = '<div style="color:#86efac;font-size:12px;text-align:center;padding:20px">Koi Registered Kisaan nahi</div>'; return; }
   var html = '';
   for (var i = 0; i < filtered.length; i++) {
@@ -1046,7 +1104,7 @@ function renderRevenue() {
   function count(amt) { var c = 0; for (var i = 0; i < ph.length; i++) { if (ph[i].amount === amt) c++; } return c; }
   function se(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; }
   se('rev99', count(99)); se('rev249', count(249)); se('rev449', count(449));
-  se('totalRevenue2', 'Rs.' + (s.revenue || 0));
+  se('totalRevenue2', '₹' + (s.revenue || 0));
   var phEl = document.getElementById('payHistory');
   if (phEl) {
     if (ph.length) {
@@ -1055,18 +1113,18 @@ function renderRevenue() {
         html += (ph[i].date || '-') + ' | Rs.' + ph[i].amount + ' | ' + ph[i].plan + ' | ' + (ph[i].name || 'User') + '<br/>';
       }
       phEl.innerHTML = html;
-    } else { phEl.innerHTML = 'Koi payment nahi'; }
+    } else { phEl.innerHTML = 'कोई भुगतान नहीं'; }
   }
   var total = s.users ? s.users.length : 1;
   var paid = s.paidUsers || 0;
   var rate = Math.round(paid / Math.max(total, 1) * 100);
   var cr = document.getElementById('convRate');
-  if (cr) cr.textContent = paid + '/' + total + ' = ' + rate + '% Conversion Rate';
+  if (cr) cr.textContent = paid + '/' + total + ' = ' + rate + '% रूपांतरण दर';
 }
-function resetStats() { if (confirm('Sabhi Stats Delete honge?')) { localStorage.removeItem('kb_stats'); loadAdminData(); } }
+function resetStats() { if (confirm('सभी आँकड़े हटा दिए जाएंगे?')) { localStorage.removeItem('kb_stats'); loadAdminData(); } }
 function exportCSV() {
   var s = getStats(); var ru = s.registeredUsers || [];
-  if (!ru.length) { alert('Koi data nahi'); return; }
+  if (!ru.length) { alert('कोई डेटा नहीं'); return; }
   var csv = 'Naam,Gaon,Fasal,Phone,Joined,Paid\n';
   for (var i = 0; i < ru.length; i++) {
     var u = ru[i];
@@ -1079,7 +1137,7 @@ function exportCSV() {
 }
 function shareKisaanList() {
   var s = getStats(); var ru = s.registeredUsers || [];
-  if (!ru.length) { alert('Koi Registered Kisaan nahi'); return; }
+  if (!ru.length) { alert('कोई पंजीकृत किसान नहीं'); return; }
   var lines = ru.map(function(u) { return (u.name || '?') + (u.village ? ' (' + u.village + ')' : '') + (u.phone ? ' - ' + u.phone : ''); });
   var text = 'KrishiBot Kisaan List:\n\n' + lines.join('\n');
   window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
@@ -1102,171 +1160,171 @@ function loadWeather() {
         var w = d.current_weather;
         var temp = Math.round(w.temperature);
         var wcode = w.weathercode;
-        var icon = '🌤️'; var desc = 'Saaf mausam'; var advice = '';
-        if (wcode === 0) { icon = '☀️'; desc = 'Dhoop — Saaf aasman'; }
-        else if (wcode <= 3) { icon = '🌤️'; desc = 'Halke baadal'; }
-        else if (wcode <= 49) { icon = '🌫️'; desc = 'Dhund/Kohra'; }
-        else if (wcode <= 69) { icon = '🌧️'; desc = 'Baarish ho rahi hai'; }
-        else if (wcode <= 79) { icon = '❄️'; desc = 'Barf/Ole'; }
-        else { icon = '⛈️'; desc = 'Aandhi-Toofan'; }
-        if (temp > 35) advice = 'Bahut garmi — subah sinchai karen, dopahar mein chhaya den';
-        else if (temp < 10) advice = 'Thand — paale se fasal bachaaen, halki sinchai karen';
-        else if (wcode >= 51 && wcode <= 82) advice = 'Baarish — khet mein nikaasi dekhen, chidkaav roken';
-        else advice = 'Mausam theek — kheti ka achha din hai!';
+        var icon = '🌤️'; var desc = 'साफ मौसम'; var advice = '';
+        if (wcode === 0) { icon = '☀️'; desc = 'धूप — साफ आसमान'; }
+        else if (wcode <= 3) { icon = '🌤️'; desc = 'हल्के बादल'; }
+        else if (wcode <= 49) { icon = '🌫️'; desc = 'धुंध/कोहरा'; }
+        else if (wcode <= 69) { icon = '🌧️'; desc = 'बारिश हो रही है'; }
+        else if (wcode <= 79) { icon = '❄️'; desc = 'बर्फ/ओले'; }
+        else { icon = '⛈️'; desc = 'आँधी-तूफान'; }
+        if (temp > 35) advice = 'बहुत गर्मी — सुबह सिंचाई करें, दोपहर में छाया दें';
+        else if (temp < 10) advice = 'ठंड — पाले से फसल बचाएं, हल्की सिंचाई करें';
+        else if (wcode >= 51 && wcode <= 82) advice = 'बारिश — खेत में निकासी देखें, छिड़काव रोकें';
+        else advice = 'मौसम ठीक — खेती का अच्छा दिन है!';
         document.getElementById('wwIcon').textContent = icon;
         document.getElementById('wwTemp').textContent = temp + 'C';
         document.getElementById('wwDesc').textContent = desc;
         document.getElementById('wwAdvice').textContent = advice;
-        document.getElementById('wwLoc').textContent = 'GPS Location se';
+        document.getElementById('wwLoc').textContent = 'GPS लोकेशन से';
       }).catch(function() { updateWeatherStatic(); });
   }, function() { updateWeatherStatic(); });
 }
 function updateWeatherStatic() {
   var m = new Date().getMonth();
   var seasons = [
-    { icon: '❄️', temp: '12-18C', desc: 'Sardi ka mausam', advice: 'Rabi fasal ki dekhbhal karen — paale se bachaaen' },
-    { icon: '❄️', temp: '14-20C', desc: 'Sardi ja rahi hai', advice: 'Gehun mein daana bhar raha hai — sinchai zaroori' },
-    { icon: '🌤️', temp: '22-30C', desc: 'Vasant ka mausam', advice: 'Rabi katai ka samay — gehun katen' },
-    { icon: '☀️', temp: '30-38C', desc: 'Garmi shuru', advice: 'Kharif ki taiyari — khet joten' },
-    { icon: '🥵', temp: '35-44C', desc: 'Bheeshann garmi', advice: 'Buwai se pehle — mitti janch karvaen' },
-    { icon: '🌧️', temp: '28-35C', desc: 'Monsoon aa raha hai', advice: 'Dhan/Soybean buwai ka sahi samay' },
-    { icon: '⛈️', temp: '26-32C', desc: 'Monsoon ka mausam', advice: 'Baarish mein khet ki nikaasi dekhen' },
-    { icon: '🌧️', temp: '26-32C', desc: 'Monsoon jaari', advice: 'Kharif fasal ki dekhbhal karen' },
-    { icon: '🌤️', temp: '24-30C', desc: 'Monsoon ja raha hai', advice: 'Rabi buwai ki taiyari shuru karen' },
-    { icon: '🌤️', temp: '22-28C', desc: 'Sharad ritu', advice: 'Gehun buwai ka sahi samay' },
-    { icon: '🌤️', temp: '18-25C', desc: 'Thand shuru', advice: 'Gehun/Chana buwai karen' },
-    { icon: '❄️', temp: '10-18C', desc: 'Sardi ka mausam', advice: 'Rabi fasal ki dekhbhal karen' }
+    { icon: '❄️', temp: '12-18C', desc: 'सर्दी का मौसम', advice: 'रबी फसल की देखभाल करें — पाले से बचाएं' },
+    { icon: '❄️', temp: '14-20C', desc: 'सर्दी जा रही है', advice: 'गेहूँ में दाना भर रहा है — सिंचाई जरूरी' },
+    { icon: '🌤️', temp: '22-30C', desc: 'वसंत का मौसम', advice: 'रबी कटाई का समय — गेहूँ काटें' },
+    { icon: '☀️', temp: '30-38C', desc: 'गर्मी शुरू', advice: 'खरीफ की तैयारी — खेत जोतें' },
+    { icon: '🥵', temp: '35-44C', desc: 'भीषण गर्मी', advice: 'बुवाई से पहले — मिट्टी जाँच करवाएं' },
+    { icon: '🌧️', temp: '28-35C', desc: 'मानसून आ रहा है', advice: 'धान/सोयाबीन बुवाई का सही समय' },
+    { icon: '⛈️', temp: '26-32C', desc: 'मानसून का मौसम', advice: 'बारिश में खेत की निकासी देखें' },
+    { icon: '🌧️', temp: '26-32C', desc: 'मानसून जारी', advice: 'खरीफ फसल की देखभाल करें' },
+    { icon: '🌤️', temp: '24-30C', desc: 'मानसून जा रहा है', advice: 'रबी बुवाई की तैयारी शुरू करें' },
+    { icon: '🌤️', temp: '22-28C', desc: 'शरद ऋतु', advice: 'गेहूँ बुवाई का सही समय' },
+    { icon: '🌤️', temp: '18-25C', desc: 'ठंड शुरू', advice: 'गेहूँ/चना बुवाई करें' },
+    { icon: '❄️', temp: '10-18C', desc: 'सर्दी का मौसम', advice: 'Rabi fasal ki dekhbhal karen' }
   ];
   var s = seasons[m];
   document.getElementById('wwIcon').textContent = s.icon;
   document.getElementById('wwTemp').textContent = s.temp;
   document.getElementById('wwDesc').textContent = s.desc;
   document.getElementById('wwAdvice').textContent = s.advice;
-  document.getElementById('wwLoc').textContent = 'Season ke anusar';
+  document.getElementById('wwLoc').textContent = 'मौसम के अनुसार';
 }
 loadWeather();
 
-function updateMandiTime() {
+function updateMandiTime() { try {
   var now = new Date();
-  document.getElementById('mandiTime').textContent = now.toLocaleTimeString('hi-IN', { hour: '2-digit', minute: '2-digit' }) + ' baje';
+  var mt=document.getElementById('mandiTime'); if(mt) mt.textContent = now.toLocaleTimeString('hi-IN', { hour: '2-digit', minute: '2-digit' }) + ' बजे'; } catch(e){} 
 }
 updateMandiTime();
 setInterval(updateMandiTime, 60000);
 
 // OPTIONS
 var OPTIONS = [
-  { icon: '🌿', label: 'Fasal Bimari', desc: 'Rog pahchanen', color: '#16a34a', subs: [
-    { icon: '🌾', label: 'Gehun', desc: 'Wheat', msg: 'Gehun ki fasal mein bimari ke lakshan, karan, dawai aur upay batao' },
-    { icon: '🌾', label: 'Dhan', desc: 'Paddy', msg: 'Dhan ki fasal mein bimari ke lakshan, karan, dawai aur upay batao' },
-    { icon: '🫘', label: 'Soybean', desc: 'Soybean', msg: 'Soybean ki fasal mein bimari, Peela Mozaic, tana makkhi ke upay batao' },
-    { icon: '🌽', label: 'Makka', desc: 'Maize', msg: 'Makka ki fasal mein bimari, Fall Armyworm, tana chhedak ke upay batao' },
-    { icon: '🥜', label: 'Chana/Dalhan', desc: 'Pulses', msg: 'Chana aur dalhan fasal mein bimari ke lakshan aur upay batao' },
-    { icon: '🌿', label: 'Anya Fasal', desc: 'Other', msg: 'Fasal mein bimari ke lakshan dikh rahe hain, karan aur upay batao' }
+  { icon: '🌿', label: 'फसल बीमारी', desc: 'Crop Disease', color: '#16a34a', subs: [
+    { icon: '🌾', label: 'गेहूँ', desc: 'Wheat', msg: 'Gehun ki fasal mein bimari ke lakshan, karan, dawai aur upay batao' },
+    { icon: '🌾', label: 'धान', desc: 'Paddy', msg: 'Dhan ki fasal mein bimari ke lakshan, karan, dawai aur upay batao' },
+    { icon: '🫘', label: 'सोयाबीन', desc: 'Soybean', msg: 'Soybean ki fasal mein bimari, Peela Mozaic, tana makkhi ke upay batao' },
+    { icon: '🌽', label: 'मक्का', desc: 'Maize', msg: 'Makka ki fasal mein bimari, Fall Armyworm, tana chhedak ke upay batao' },
+    { icon: '🥜', label: 'चना/दलहन', desc: 'Pulses', msg: 'Chana aur dalhan fasal mein bimari ke lakshan aur upay batao' },
+    { icon: '🌿', label: 'अन्य फसल', desc: 'Other Crop', msg: 'Fasal mein bimari ke lakshan dikh rahe hain, karan aur upay batao' }
   ]},
-  { icon: '🌦️', label: 'Mausam Salah', desc: 'Aaj kya karen', color: '#0369a1', subs: [
-    { icon: '🌧️', label: 'Baarish mein', desc: 'Monsoon', msg: 'Baarish ke mausam mein kheti mein kya karen aur kya na karen batao' },
-    { icon: '☀️', label: 'Garmi mein', desc: 'Summer', msg: 'Garmi ke mausam mein fasal ki dekhbhal kaise karen batao' },
-    { icon: '❄️', label: 'Sardi/Paala', desc: 'Winter', msg: 'Sardi aur paale se fasal kaise bachaaen, upay batao' },
-    { icon: '📅', label: 'Aaj kya karun', desc: 'Today', msg: 'March mahine mein kheti mein aaj kya kaam karna chahiye batao' }
+  { icon: '🌦️', label: 'मौसम सलाह', desc: 'Weather Advice', color: '#0369a1', subs: [
+    { icon: '🌧️', label: 'बारिश में', desc: 'Monsoon', msg: 'Baarish ke mausam mein kheti mein kya karen aur kya na karen batao' },
+    { icon: '☀️', label: 'गर्मी में', desc: 'Summer', msg: 'Garmi ke mausam mein fasal ki dekhbhal kaise karen batao' },
+    { icon: '❄️', label: 'सर्दी/पाला', desc: 'Winter', msg: 'Sardi aur paale se fasal kaise bachaaen, upay batao' },
+    { icon: '📅', label: 'आज क्या करूँ', desc: 'Today Task', msg: 'March mahine mein kheti mein aaj kya kaam karna chahiye batao' }
   ]},
-  { icon: '💊', label: 'Dawai Puchho', desc: 'Sahi dawai janen', color: '#7c3aed', subs: [
-    { icon: '🍄', label: 'Fffund Dawai', desc: 'Fungicide', msg: 'Fasal mein fffund rog ki sabse achhi dawaiyaan, naam aur matra batao' },
-    { icon: '🐛', label: 'Keede ki Dawai', desc: 'Insecticide', msg: 'Fasal mein keede maarne ki sabse achhi dawaiyaan, naam aur matra batao' },
-    { icon: '🌿', label: 'Kharpattwar Nashak', desc: 'Weedicide', msg: 'Kharpattwar nashak dawaiyaan, fasalvar naam aur matra batao' },
-    { icon: '💉', label: 'Beej Upchar', desc: 'Seed Treatment', msg: 'Buwai se pehle beej upchar kaise karen aur kaun si dawai lagaen batao' },
-    { icon: '🧬', label: 'Bacteria Rog', desc: 'Bactericide', msg: 'Fasal mein bacteria se hone wale rog aur dawai batao' },
-    { icon: '🌱', label: 'Vriddhi Niyamak', desc: 'Growth', msg: 'Fasal ki vriddhi badhaane ke liye kaun se hormone upyogi hain batao' }
+  { icon: '💊', label: 'दवाई पूछो', desc: 'Ask Medicine', color: '#7c3aed', subs: [
+    { icon: '🍄', label: 'फफूंद दवाई', desc: 'Fungicide', msg: 'फसल में फफूंद रोग की सबसे अच्छी दवाइयां, नाम और मात्रा बताओ' },
+    { icon: '🐛', label: 'कीड़े की दवाई', desc: 'Insecticide', msg: 'Fasal mein keede maarne ki sabse achhi dawaiyaan, naam aur matra batao' },
+    { icon: '🌿', label: 'खरपतवार नाशक', desc: 'Weedicide', msg: 'Kharpattwar nashak dawaiyaan, fasalvar naam aur matra batao' },
+    { icon: '💉', label: 'बीज उपचार', desc: 'Seed Treatment', msg: 'Buwai se pehle beej upchar kaise karen aur kaun si dawai lagaen batao' },
+    { icon: '🧬', label: 'जीवाणु रोग', desc: 'Bactericide', msg: 'Fasal mein bacteria se hone wale rog aur dawai batao' },
+    { icon: '🌱', label: 'वृद्धि नियामक', desc: 'Growth Reg.', msg: 'Fasal ki vriddhi badhaane ke liye kaun se hormone upyogi hain batao' }
   ]},
-  { icon: '💰', label: 'Mandi Bhav', desc: 'Aaj ke daam', color: '#b45309', subs: [
-    { icon: '🌾', label: 'Gehun Bhav', desc: 'Wheat', msg: 'Gehun ka MSP 2024-25 aur mandi bhav ki jankari do, kahan bechen batao' },
-    { icon: '🌾', label: 'Dhan/Chawal', desc: 'Rice', msg: 'Dhan aur chawal ka MSP aur mandi bhav ki jankari do' },
-    { icon: '🫘', label: 'Soybean', desc: 'Soybean', msg: 'Soybean ka MSP aur mandi bhav ki jankari do' },
-    { icon: '🧅', label: 'Pyaj/Lahsun', desc: 'Onion', msg: 'Pyaj aur lahsun ke bazaar bhav ki jankari do' },
-    { icon: '🥔', label: 'Aloo/Sabzi', desc: 'Vegetable', msg: 'Aloo aur sabziyon ke mandi bhav ki jankari do' },
-    { icon: '📊', label: 'MSP kya hai', desc: 'Support Price', msg: 'MSP yaani Nyuntam Samarthan Mulya kya hota hai, sabhi fasalon ka MSP 2024-25 batao' }
+  { icon: '💰', label: 'मंडी भाव', desc: 'Market Price', color: '#b45309', subs: [
+    { icon: '🌾', label: 'गेहूँ भाव', desc: 'Wheat Price', msg: 'Gehun ka MSP 2024-25 aur mandi bhav ki jankari do, kahan bechen batao' },
+    { icon: '🌾', label: 'धान/चावल', desc: 'Rice Price', msg: 'Dhan aur chawal ka MSP aur mandi bhav ki jankari do' },
+    { icon: '🫘', label: 'सोयाबीन भाव', desc: 'Soybean Price', msg: 'Soybean ka MSP aur mandi bhav ki jankari do' },
+    { icon: '🧅', label: 'प्याज/लहसुन', desc: 'Onion/Garlic', msg: 'Pyaj aur lahsun ke bazaar bhav ki jankari do' },
+    { icon: '🥔', label: 'आलू/सब्जी', desc: 'Vegetable', msg: 'Aloo aur sabziyon ke mandi bhav ki jankari do' },
+    { icon: '📊', label: 'MSP क्या है', desc: 'Support Price', msg: 'MSP yaani Nyuntam Samarthan Mulya kya hota hai, sabhi fasalon ka MSP 2024-25 batao' }
   ]},
-  { icon: '🧪', label: 'Khad Jankari', desc: 'Urvarak salah', color: '#0f766e', subs: [
+  { icon: '🧪', label: 'खाद जानकारी', desc: 'Fertilizer Info', color: '#0f766e', subs: [
     { icon: '⚗️', label: 'Urea', desc: 'Nitrogen', msg: 'Urea khad kab aur kitna dalen, fasalvar jankari do' },
-    { icon: '🔵', label: 'DAP Khad', desc: 'Phosphorus', msg: 'DAP khad kab aur kitna dalen, fayde aur tarika batao' },
-    { icon: '🟤', label: 'Potash MOP', desc: 'Potassium', msg: 'Potash khad kab aur kitna dalen, kin fasalon mein zaroori hai batao' },
-    { icon: '🌿', label: 'Jaivik Khad', desc: 'Organic', msg: 'Jaivik khad ke prakar, kaise banaen aur kitna dalen batao' },
-    { icon: '🧫', label: 'Micronutrient', desc: 'Sukshm Poshak', msg: 'Zinc, Boron, Iron ki kami kaise pahchanen aur kya karen batao' },
-    { icon: '📋', label: 'Khad Schedule', desc: 'When to Apply', msg: 'Gehun dhan soybean ke liye poore season ka khad dalne ka schedule batao' }
+    { icon: '🔵', label: 'DAP खाद', desc: 'Phosphorus', msg: 'DAP khad kab aur kitna dalen, fayde aur tarika batao' },
+    { icon: '🟤', label: 'पोटाश MOP', desc: 'Potassium', msg: 'Potash khad kab aur kitna dalen, kin fasalon mein zaroori hai batao' },
+    { icon: '🌿', label: 'जैविक खाद', desc: 'Organic', msg: 'Jaivik khad ke prakar, kaise banaen aur kitna dalen batao' },
+    { icon: '🧫', label: 'सूक्ष्म पोषक', desc: 'Micronutrient', msg: 'Zinc, Boron, Iron ki kami kaise pahchanen aur kya karen batao' },
+    { icon: '📋', label: 'खाद शेड्यूल', desc: 'Fertilizer Plan', msg: 'Gehun dhan soybean ke liye poore season ka khad dalne ka schedule batao' }
   ]},
-  { icon: '🐛', label: 'Keet Samasya', desc: 'Keede bhagaen', color: '#b91c1c', subs: [
-    { icon: '🦟', label: 'Maahu/Chepa', desc: 'Aphid', msg: 'Maahu yaani Aphid keet ki pahchaan, nuksan aur niyantran ke upay batao' },
-    { icon: '🦋', label: 'Illi/Sundi', desc: 'Caterpillar', msg: 'Illi aur sundi keet ki pahchaan aur niyantran ke upay batao' },
-    { icon: '🪲', label: 'Deemat', desc: 'Termite', msg: 'Deemat ki pahchaan, fasal mein nuksan aur niyantran ke upay batao' },
-    { icon: '🦗', label: 'Safed Makkhi', desc: 'Whitefly', msg: 'Safed makkhi ki pahchaan, nuksan aur niyantran ke upay batao' },
-    { icon: '🐝', label: 'Tana Chhedak', desc: 'Stem Borer', msg: 'Tana chhedak keet ki pahchaan, nuksan aur niyantran ke upay batao' },
-    { icon: '🪳', label: 'Anya Keet', desc: 'Other', msg: 'Fasal mein alag-alag keeton ki pahchaan aur jaivik va rasayanik niyantran batao' }
+  { icon: '🐛', label: 'कीट समस्या', desc: 'Pest Control', color: '#b91c1c', subs: [
+    { icon: '🦟', label: 'माहू/चेपा', desc: 'Aphid', msg: 'Maahu yaani Aphid keet ki pahchaan, nuksan aur niyantran ke upay batao' },
+    { icon: '🦋', label: 'इल्ली/सुंडी', desc: 'Caterpillar', msg: 'Illi aur sundi keet ki pahchaan aur niyantran ke upay batao' },
+    { icon: '🪲', label: 'दीमक', desc: 'Termite', msg: 'Deemat ki pahchaan, fasal mein nuksan aur niyantran ke upay batao' },
+    { icon: '🦗', label: 'सफेद मक्खी', desc: 'Whitefly', msg: 'Safed makkhi ki pahchaan, nuksan aur niyantran ke upay batao' },
+    { icon: '🐝', label: 'तना छेदक', desc: 'Stem Borer', msg: 'Tana chhedak keet ki pahchaan, nuksan aur niyantran ke upay batao' },
+    { icon: '🪳', label: 'अन्य कीट', desc: 'Other Pest', msg: 'Fasal mein alag-alag keeton ki pahchaan aur jaivik va rasayanik niyantran batao' }
   ]},
-  { icon: '🌱', label: 'Beej Jankari', desc: 'Achhe beej chunen', color: '#15803d', subs: [
-    { icon: '🌾', label: 'Gehun Beej', desc: 'Wheat Seed', msg: 'Gehun ki unnat kismen, kahan milengi aur beej upchar kaise karen batao' },
-    { icon: '🌾', label: 'Dhan Beej', desc: 'Paddy Seed', msg: 'Dhan ki unnat kismen, Hybrid vs Open Pollinated aur kahan milen batao' },
-    { icon: '🫘', label: 'Soybean Beej', desc: 'Soybean', msg: 'Soybean ki unnat kismen aur beej upchar ki jankari do' },
-    { icon: '🌽', label: 'Makka/Hybrid', desc: 'Maize', msg: 'Makka ki Hybrid kismen, paidawar aur keemat batao' },
-    { icon: '🍅', label: 'Sabzi Beej', desc: 'Vegetable', msg: 'Sabziyon ke achhe beej, Hybrid aur desi mein fark batao' },
-    { icon: '🏪', label: 'Beej Kahan len', desc: 'Certified', msg: 'Certified beej kahan se milta hai, IARI NSC KVK se kaise len batao' }
+  { icon: '🌱', label: 'बीज जानकारी', desc: 'Seed Selection', color: '#15803d', subs: [
+    { icon: '🌾', label: 'गेहूँ बीज', desc: 'Wheat Seed', msg: 'Gehun ki unnat kismen, kahan milengi aur beej upchar kaise karen batao' },
+    { icon: '🌾', label: 'धान बीज', desc: 'Paddy Seed', msg: 'Dhan ki unnat kismen, Hybrid vs Open Pollinated aur kahan milen batao' },
+    { icon: '🫘', label: 'सोयाबीन बीज', desc: 'Soybean Seed', msg: 'Soybean ki unnat kismen aur beej upchar ki jankari do' },
+    { icon: '🌽', label: 'मक्का/हाइब्रिड', desc: 'Maize Seed', msg: 'Makka ki Hybrid kismen, paidawar aur keemat batao' },
+    { icon: '🍅', label: 'सब्जी बीज', desc: 'Veggie Seed', msg: 'Sabziyon ke achhe beej, Hybrid aur desi mein fark batao' },
+    { icon: '🏪', label: 'बीज कहाँ लें', desc: 'Certified Seed', msg: 'Certified beej kahan se milta hai, IARI NSC KVK se kaise len batao' }
   ]},
-  { icon: '💧', label: 'Sinchai Salah', desc: 'Paani kab den', color: '#1d4ed8', subs: [
-    { icon: '💧', label: 'Kab Paani den', desc: 'When to Water', msg: 'Gehun dhan soybean mein kab aur kitni baar sinchai karen, Critical Stages batao' },
-    { icon: '🚿', label: 'Drip Sinchai', desc: 'Drip', msg: 'Drip Irrigation tapak sinchai, kharcha aur Subsidy ki jankari do' },
-    { icon: '🌧️', label: 'Favvara', desc: 'Sprinkler', msg: 'Sprinkler favvara sinchai ke fayde, kharcha aur Subsidy batao' },
-    { icon: '⚡', label: 'Paani Bachaen', desc: 'Water Saving', msg: 'Kheti mein paani bachaane ke tarike, Mulching aur kam paani mein zyada paidawar' },
-    { icon: '🏞️', label: 'Jal Nikaasi', desc: 'Drainage', msg: 'Khet mein paani bhar jaae to kya karen, jal nikaasi ka sahi tarika batao' }
+  { icon: '💧', label: 'सिंचाई सलाह', desc: 'Irrigation Guide', color: '#1d4ed8', subs: [
+    { icon: '💧', label: 'कब पानी दें', desc: 'When to Water', msg: 'Gehun dhan soybean mein kab aur kitni baar sinchai karen, Critical Stages batao' },
+    { icon: '🚿', label: 'ड्रिप सिंचाई', desc: 'Drip Irrigation', msg: 'Drip Irrigation tapak sinchai, kharcha aur Subsidy ki jankari do' },
+    { icon: '🌧️', label: 'फव्वारा', desc: 'Sprinkler', msg: 'Sprinkler favvara sinchai ke fayde, kharcha aur Subsidy batao' },
+    { icon: '⚡', label: 'पानी बचाएं', desc: 'Water Saving', msg: 'Kheti mein paani bachaane ke tarike, Mulching aur kam paani mein zyada paidawar' },
+    { icon: '🏞️', label: 'जल निकासी', desc: 'Drainage', msg: 'Khet mein paani bhar jaae to kya karen, jal nikaasi ka sahi tarika batao' }
   ]},
-  { icon: '📋', label: 'Sarkari Yojna', desc: 'Madad paen', color: '#9d174d', subs: [
-    { icon: '💰', label: 'PM Kisan', desc: 'Rs.6000/saal', msg: 'PM Kisan Samman Nidhi ki poori jankari, aavedan aur eKYC kaise karen batao' },
-    { icon: '🛡️', label: 'Fasal Bima', desc: 'PMFBY', msg: 'PM Fasal Bima Yojana mein Apply kaise karen, Premium aur Claim ki jankari do' },
-    { icon: '💳', label: 'KCC Loan', desc: 'Kisan Credit', msg: 'Kisan Credit Card KCC kaise banvaen, byaj dar aur kitna loan milega batao' },
-    { icon: '💧', label: 'Sinchai Subsidy', desc: 'PMKSY', msg: 'PMKSY mein Drip Sprinkler Subsidy kaise milegi, Apply kaise karen batao' },
-    { icon: '🌱', label: 'Soil Health Card', desc: 'Mitti Janch', msg: 'Soil Health Card kya hai, mitti janch kaise karvaen aur Card kahan milega' },
-    { icon: '📞', label: 'Helpline', desc: 'Sarkari Madad', msg: 'Kisanon ke liye sarkari Helpline number, Kisan Call Center aur shikayat kahan karen' }
+  { icon: '📋', label: 'सरकारी योजना', desc: 'Govt Schemes', color: '#9d174d', subs: [
+    { icon: '💰', label: 'PM किसान', desc: '₹6000/Year', msg: 'PM Kisan Samman Nidhi ki poori jankari, aavedan aur eKYC kaise karen batao' },
+    { icon: '🛡️', label: 'फसल बीमा', desc: 'PMFBY', msg: 'PM Fasal Bima Yojana mein Apply kaise karen, Premium aur Claim ki jankari do' },
+    { icon: '💳', label: 'KCC लोन', desc: 'Kisan Credit', msg: 'Kisan Credit Card KCC kaise banvaen, byaj dar aur kitna loan milega batao' },
+    { icon: '💧', label: 'सिंचाई सब्सिडी', desc: 'PMKSY', msg: 'PMKSY mein Drip Sprinkler Subsidy kaise milegi, Apply kaise karen batao' },
+    { icon: '🌱', label: 'मिट्टी जाँच', desc: 'Soil Health', msg: 'Soil Health Card kya hai, mitti janch kaise karvaen aur Card kahan milega' },
+    { icon: '📞', label: 'हेल्पलाइन', desc: 'Govt Helpline', msg: 'Kisanon ke liye sarkari Helpline number, Kisan Call Center aur shikayat kahan karen' }
   ]},
-  { icon: '🐄', label: 'Pashupalan', desc: 'Pashu ki dekhbhal', color: '#92400e', subs: [
-    { icon: '🐄', label: 'Gaay Palan', desc: 'Cow', msg: 'Gaay palan ki poori jankari, unnat naslen, chaara, doodh badhaane ke upay batao' },
-    { icon: '🐃', label: 'Bhains Palan', desc: 'Buffalo', msg: 'Bhains palan ki jankari, unnat naslen, doodh utpadan aur dekhbhal batao' },
-    { icon: '🐐', label: 'Bakri Palan', desc: 'Goat', msg: 'Bakri palan ki jankari, naslen, kharcha, kamai aur dekhbhal ka tarika batao' },
-    { icon: '🐓', label: 'Murgi Palan', desc: 'Poultry', msg: 'Murgi palan ki jankari, Layer vs Broiler, kharcha, kamai aur Subsidy batao' },
-    { icon: '🐟', label: 'Machli Palan', desc: 'Fish Farming', msg: 'Machli palan ki poori jankari, talaab, naslen, chaara, kamai aur PMMSY Subsidy batao' },
-    { icon: '🐝', label: 'Madhumakhi Palan', desc: 'Bee Keeping', msg: 'Madhumakhi palan ki poori jankari — baksa kaise lagaen, kaun si nasl, shahad kitna milega, kamai aur sarkari Subsidy batao' },
-    { icon: '💉', label: 'Teekakaaran', desc: 'Vaccination', msg: 'Pashuon ka teekakaaran kab aur kaun sa lagvaen, FMD aur HS teeka ki jankari do' },
-    { icon: '🏥', label: 'Pashu Bimari', desc: 'Animal Disease', msg: 'Pashuon ki samanya bimariyan, lakshan pahchaan aur ilaaj ki jankari do, Helpline 1962' }
+  { icon: '🐄', label: 'पशुपालन', desc: 'Animal Farming', color: '#92400e', subs: [
+    { icon: '🐄', label: 'गाय पालन', desc: 'Cow Farming', msg: 'Gaay palan ki poori jankari, unnat naslen, chaara, doodh badhaane ke upay batao' },
+    { icon: '🐃', label: 'भैंस पालन', desc: 'Buffalo', msg: 'Bhains palan ki jankari, unnat naslen, doodh utpadan aur dekhbhal batao' },
+    { icon: '🐐', label: 'बकरी पालन', desc: 'Goat Farming', msg: 'Bakri palan ki jankari, naslen, kharcha, kamai aur dekhbhal ka tarika batao' },
+    { icon: '🐓', label: 'मुर्गी पालन', desc: 'Poultry', msg: 'Murgi palan ki jankari, Layer vs Broiler, kharcha, kamai aur Subsidy batao' },
+    { icon: '🐟', label: 'मछली पालन', desc: 'Fish Farming', msg: 'Machli palan ki poori jankari, talaab, naslen, chaara, kamai aur PMMSY Subsidy batao' },
+    { icon: '🐝', label: 'मधुमक्खी पालन', desc: 'Bee Keeping', msg: 'Madhumakhi palan ki poori jankari — baksa kaise lagaen, kaun si nasl, shahad kitna milega, kamai aur sarkari Subsidy batao' },
+    { icon: '💉', label: 'टीकाकरण', desc: 'Vaccination', msg: 'Pashuon ka teekakaaran kab aur kaun sa lagvaen, FMD aur HS teeka ki jankari do' },
+    { icon: '🏥', label: 'पशु बीमारी', desc: 'Animal Disease', msg: 'Pashuon ki samanya bimariyan, lakshan pahchaan aur ilaaj ki jankari do, Helpline 1962' }
   ]},
-  { icon: '🍅', label: 'Udyaniki', desc: 'Sabzi va phal', color: '#065f46', subs: [
-    { icon: '🍅', label: 'Tamatar', desc: 'Tomato', msg: 'Tamatar ki kheti ki poori jankari, buwai, khad, dawai, paidawar aur kamai batao' },
-    { icon: '🧅', label: 'Pyaj/Lahsun', desc: 'Onion', msg: 'Pyaj aur lahsun ki kheti ki jankari, buwai se katai tak batao' },
-    { icon: '🥔', label: 'Aloo', desc: 'Potato', msg: 'Aloo ki kheti ki poori jankari, kismen, khad, sinchai aur bhandaran batao' },
-    { icon: '🥭', label: 'Aam/Phal', desc: 'Fruits', msg: 'Aam aur phalon ki kheti ki jankari, Subsidy aur MIDH Scheme batao' },
-    { icon: '🥦', label: 'Hari Sabziyan', desc: 'Vegetables', msg: 'Hari sabziyon ki kheti, Palak, Methi, Dhaniya, Patta Gobhi ki jankari do' },
-    { icon: '💰', label: 'Horticulture Subsidy', desc: 'Sarkari Madad', msg: 'Udyaniki kheti ke liye sarkari Subsidy aur MIDH Scheme mein Apply kaise karen' }
+  { icon: '🍅', label: 'उद्यानिकी', desc: 'Horticulture', color: '#065f46', subs: [
+    { icon: '🍅', label: 'टमाटर', desc: 'Tomato', msg: 'Tamatar ki kheti ki poori jankari, buwai, khad, dawai, paidawar aur kamai batao' },
+    { icon: '🧅', label: 'प्याज/लहसुन', desc: 'Onion/Garlic', msg: 'Pyaj aur lahsun ki kheti ki jankari, buwai se katai tak batao' },
+    { icon: '🥔', label: 'आलू', desc: 'Potato', msg: 'Aloo ki kheti ki poori jankari, kismen, khad, sinchai aur bhandaran batao' },
+    { icon: '🥭', label: 'आम/फल', desc: 'Fruits', msg: 'Aam aur phalon ki kheti ki jankari, Subsidy aur MIDH Scheme batao' },
+    { icon: '🥦', label: 'हरी सब्जियाँ', desc: 'Vegetables', msg: 'Hari sabziyon ki kheti, Palak, Methi, Dhaniya, Patta Gobhi ki jankari do' },
+    { icon: '💰', label: 'बागवानी सब्सिडी', desc: 'Hort. Subsidy', msg: 'Udyaniki kheti ke liye sarkari Subsidy aur MIDH Scheme mein Apply kaise karen' }
   ]},
-  { icon: '🌿', label: 'Jaivik Kheti', desc: 'Organic Farming', color: '#4d7c0f', subs: [
-    { icon: '🌱', label: 'Jaivik Kheti kya hai', desc: 'Organic Basics', msg: 'Jaivik kheti kya hoti hai, rasayanik kheti se kya fark hai, fayde aur shuru kaise karen batao' },
-    { icon: '🐄', label: 'Gobar Khad/Vermi', desc: 'Compost', msg: 'Gobar khad aur Vermi Compost kaise banaen, kitna dalen, fasalvar jankari aur kamai batao' },
-    { icon: '🧪', label: 'Jeevamrit', desc: 'Jeevamrit', msg: 'Jeevamrit aur Ghanjeevamrit kaise banaen, kitna aur kab dalen, fasal par asar batao' },
-    { icon: '🌾', label: 'Neem Dawai', desc: 'Neem Products', msg: 'Neem tel, neem khali, neem kadha — kaise banaen, kitna dalen, kin keeron par asar hota hai batao' },
-    { icon: '🦠', label: 'Jaivik Keet Niyantran', desc: 'Bio Pesticide', msg: 'Jaivik keet niyantran — Trichoderma, Beauveria, Metarhizium, Pseudomonas ka upyog kaise karen batao' },
-    { icon: '🌻', label: 'Hari Khad', desc: 'Green Manure', msg: 'Hari khad kya hai — Sanai, Dhaincha, Moong — kaise aur kab boaen, fayde aur mitti sudhar batao' },
-    { icon: '📜', label: 'Organic Certificate', desc: 'Certificate', msg: 'Jaivik kheti ka Certificate kaise milega — NPOP, PGS-India Certification ki poori jankari aur kharcha batao' },
-    { icon: '💰', label: 'Jaivik Upaj Bechen', desc: 'Sell Organic', msg: 'Jaivik fasal kahan bechen — Organic Market, Online Platform, FPO, aur Premium Price kaise milega batao' }
+  { icon: '🌿', label: 'जैविक खेती', desc: 'Organic Farming', color: '#4d7c0f', subs: [
+    { icon: '🌱', label: 'जैविक खेती क्या है', desc: 'Organic Basics', msg: 'Jaivik kheti kya hoti hai, rasayanik kheti se kya fark hai, fayde aur shuru kaise karen batao' },
+    { icon: '🐄', label: 'गोबर खाद/वर्मी', desc: 'Compost', msg: 'Gobar khad aur Vermi Compost kaise banaen, kitna dalen, fasalvar jankari aur kamai batao' },
+    { icon: '🧪', label: 'जीवामृत', desc: 'Jeevamrit', msg: 'Jeevamrit aur Ghanjeevamrit kaise banaen, kitna aur kab dalen, fasal par asar batao' },
+    { icon: '🌾', label: 'नीम दवाई', desc: 'Neem Products', msg: 'Neem tel, neem khali, neem kadha — kaise banaen, kitna dalen, kin keeron par asar hota hai batao' },
+    { icon: '🦠', label: 'जैविक कीट नियंत्रण', desc: 'Bio Pesticide', msg: 'Jaivik keet niyantran — Trichoderma, Beauveria, Metarhizium, Pseudomonas ka upyog kaise karen batao' },
+    { icon: '🌻', label: 'हरी खाद', desc: 'Green Manure', msg: 'Hari khad kya hai — Sanai, Dhaincha, Moong — kaise aur kab boaen, fayde aur mitti sudhar batao' },
+    { icon: '📜', label: 'जैविक प्रमाणपत्र', desc: 'Certificate', msg: 'Jaivik kheti ka Certificate kaise milega — NPOP, PGS-India Certification ki poori jankari aur kharcha batao' },
+    { icon: '💰', label: 'जैविक उपज बेचें', desc: 'Sell Organic', msg: 'Jaivik fasal kahan bechen — Organic Market, Online Platform, FPO, aur Premium Price kaise milega batao' }
   ]},
-  { icon: '🌸', label: 'Bagwani', desc: 'Phool va Nursery', color: '#be185d', subs: [
-    { icon: '🌹', label: 'Phoolon ki Kheti', desc: 'Flower Farming', msg: 'Phoolon ki kheti ki poori jankari — Genda, Gulab, Rajnigandha, Gladiolus — buwai, khad, kamai batao' },
-    { icon: '🌿', label: 'Nursery kaise banaen', desc: 'Nursery Setup', msg: 'Paudhon ki nursery kaise shuru karen — jagah, kharcha, paudhe, bikri aur kamai ki poori jankari do' },
-    { icon: '🌳', label: 'Phaldar Ped', desc: 'Fruit Trees', msg: 'Aam, Amrood, Nimbu, Aanwla, Kela — phaldar ped ki kheti, Subsidy aur kamai batao' },
-    { icon: '🌺', label: 'Sajawati Paudhe', desc: 'Ornamental', msg: 'Sajawati paudhon ki kheti aur bikri — Indoor Plant, Bonsai, chhat par bagwani ki jankari do' },
-    { icon: '🍃', label: 'Aushadhi Paudhe', desc: 'Medicinal', msg: 'Aushadhi paudhon ki kheti — Tulsi, Aloe Vera, Ashwagandha, Shatavar ki kheti aur bikri kahan karen batao' },
-    { icon: '💰', label: 'Horticulture Subsidy', desc: 'Sarkari Madad', msg: 'Bagwani ke liye sarkari Subsidy — MIDH Scheme, National Horticulture Mission mein Apply kaise karen batao' }
+  { icon: '🌸', label: 'बागवानी', desc: 'Floriculture', color: '#be185d', subs: [
+    { icon: '🌹', label: 'फूलों की खेती', desc: 'Flower Farming', msg: 'Phoolon ki kheti ki poori jankari — Genda, Gulab, Rajnigandha, Gladiolus — buwai, khad, kamai batao' },
+    { icon: '🌿', label: 'नर्सरी कैसे बनाएं', desc: 'Nursery Setup', msg: 'Paudhon ki nursery kaise shuru karen — jagah, kharcha, paudhe, bikri aur kamai ki poori jankari do' },
+    { icon: '🌳', label: 'फलदार पेड़', desc: 'Fruit Trees', msg: 'Aam, Amrood, Nimbu, Aanwla, Kela — phaldar ped ki kheti, Subsidy aur kamai batao' },
+    { icon: '🌺', label: 'सजावटी पौधे', desc: 'Ornamental', msg: 'Sajawati paudhon ki kheti aur bikri — Indoor Plant, Bonsai, chhat par bagwani ki jankari do' },
+    { icon: '🍃', label: 'औषधीय पौधे', desc: 'Medicinal', msg: 'Aushadhi paudhon ki kheti — Tulsi, Aloe Vera, Ashwagandha, Shatavar ki kheti aur bikri kahan karen batao' },
+    { icon: '💰', label: 'बागवानी सब्सिडी', desc: 'Hort. Subsidy', msg: 'Bagwani ke liye sarkari Subsidy — MIDH Scheme, National Horticulture Mission mein Apply kaise karen batao' }
   ]},
-  { icon: '🗺️', label: 'Krishak Zameen', desc: 'Bhoomi jankari', color: '#1e40af', subs: [
-    { icon: '📄', label: 'Khasra-Khatauni', desc: 'Land Records', msg: 'Khasra khatauni online kaise dekhen, MP UP CG Rajasthan ki Bhulekh Website batao' },
-    { icon: '🗺️', label: 'Bhu-Naksha', desc: 'Land Map', msg: 'Zameen ka naksha online kaise dekhen aur Download karen, State wise Portal batao' },
-    { icon: '✍️', label: 'Namantaran', desc: 'Mutation', msg: 'Namantaran yaani zameen mein naam kaise chadvaen, Online Apply kaise karen batao' },
-    { icon: '🏛️', label: 'Zameen Registry', desc: 'Registration', msg: 'Zameen ki registry kaise hoti hai, zaroori Documents aur kharcha batao' },
-    { icon: '💰', label: 'Zameen par Loan', desc: 'Land Loan', msg: 'Zameen par loan kaise milta hai, KCC aur Agriculture Loan ki jankari do' },
-    { icon: '⚖️', label: 'Zameen Vivad', desc: 'Dispute', msg: 'Zameen vivad hone par kya karen, Revenue Court aur Patwari se kaise madad len' }
+  { icon: '🗺️', label: 'कृषक ज़मीन', desc: 'Land Records', color: '#1e40af', subs: [
+    { icon: '📄', label: 'खसरा-खतौनी', desc: 'Land Records', msg: 'Khasra khatauni online kaise dekhen, MP UP CG Rajasthan ki Bhulekh Website batao' },
+    { icon: '🗺️', label: 'भू-नक्शा', desc: 'Land Map', msg: 'Zameen ka naksha online kaise dekhen aur Download karen, State wise Portal batao' },
+    { icon: '✍️', label: 'नामांतरण', desc: 'Mutation', msg: 'Namantaran yaani zameen mein naam kaise chadvaen, Online Apply kaise karen batao' },
+    { icon: '🏛️', label: 'ज़मीन रजिस्ट्री', desc: 'Registration', msg: 'Zameen ki registry kaise hoti hai, zaroori Documents aur kharcha batao' },
+    { icon: '💰', label: 'ज़मीन पर लोन', desc: 'Land Loan', msg: 'Zameen par loan kaise milta hai, KCC aur Agriculture Loan ki jankari do' },
+    { icon: '⚖️', label: 'ज़मीन विवाद', desc: 'Land Dispute', msg: 'Zameen vivad hone par kya karen, Revenue Court aur Patwari se kaise madad len' }
   ]}
 ];
 
@@ -1328,24 +1386,24 @@ function calcProfit() {
   var totalYield = d.yield * acre;
   var totalIncome = Math.round(totalYield * price);
   var profit = totalIncome - totalCost;
-  document.getElementById('calcExpense').textContent = 'Rs.' + totalCost.toLocaleString('en-IN');
-  document.getElementById('calcIncome').textContent = 'Rs.' + totalIncome.toLocaleString('en-IN');
-  document.getElementById('calcProfitVal').textContent = (profit >= 0 ? '+' : '') + 'Rs.' + profit.toLocaleString('en-IN');
+  document.getElementById('calcExpense').textContent = '₹' + totalCost.toLocaleString('en-IN');
+  document.getElementById('calcIncome').textContent = '₹' + totalIncome.toLocaleString('en-IN');
+  document.getElementById('calcProfitVal').textContent = (profit >= 0 ? '+' : '') + '₹' + profit.toLocaleString('en-IN');
   document.getElementById('calcProfitVal').style.color = profit >= 0 ? '#4ade80' : '#f87171';
   var items = [
-    ['Beej Kharcha', Math.round(d.beej * acre)],
-    ['Khad Kharcha', Math.round(d.khad * acre)],
-    ['Dawai Kharcha', Math.round(d.dawai * acre)],
-    ['Sinchai Kharcha', Math.round(d.sinchai * acre)],
-    ['Majdoori', Math.round(d.majdoori * acre)],
-    ['Jotai', Math.round(d.jotai * acre)],
-    ['Katai', Math.round(d.katai * acre)],
-    ['Upaj (Anumaanit)', totalYield + ' quintal'],
-    ['MSP 2024-25', 'Rs.' + d.msp + '/quintal']
+    ['बीज खर्चा', Math.round(d.beej * acre)],
+    ['खाद खर्चा', Math.round(d.khad * acre)],
+    ['दवाई खर्चा', Math.round(d.dawai * acre)],
+    ['सिंचाई खर्चा', Math.round(d.sinchai * acre)],
+    ['मजदूरी', Math.round(d.majdoori * acre)],
+    ['जुताई', Math.round(d.jotai * acre)],
+    ['कटाई', Math.round(d.katai * acre)],
+    ['उपज (अनुमानित)', totalYield + ' क्विंटल'],
+    ['MSP 2024-25', '₹' + d.msp + '/क्विंटल']
   ];
   var html = '';
   for (var i = 0; i < items.length; i++) {
-    var v = typeof items[i][1] === 'number' ? 'Rs.' + items[i][1].toLocaleString('en-IN') : items[i][1];
+    var v = typeof items[i][1] === 'number' ? '₹' + items[i][1].toLocaleString('en-IN') : items[i][1];
     html += '<div class="calc-row"><span class="cl">' + items[i][0] + '</span><span class="cv">' + v + '</span></div>';
   }
   document.getElementById('calcBreakdown').innerHTML = html;
@@ -1356,8 +1414,8 @@ function sendCalcToChat() {
   if (!currentCalcCrop) return;
   document.getElementById('calcModal').classList.remove('show');
   var acre = document.getElementById('calcAcre').value || 1;
-  var msg = currentCalcCrop.name + ' ki kheti ' + acre + ' acre mein kharcha kam karne aur zyada paidawar ke liye kya karen? Unnat tarike batao.';
-  if (!chatScreen.classList.contains('show')) showChat('Fasal Calculator');
+  var msg = currentCalcCrop.name + ' की खेती ' + acre + ' एकड़ में खर्चा कम करने और ज्यादा पैदावार के लिए क्या करें? उन्नत तरीके बताओ।';
+  if (!chatScreen.classList.contains('show')) showChat('फसल कैलकुलेटर');
   addUserMsg(msg);
   callGemini(msg);
 }
@@ -1374,7 +1432,7 @@ var installBtn = $('installBtn'), installBanner = $('installBanner');
 var messages = [], loading = false, attachedImage = null, attachedImageData = null;
 var isRecording = false, recognition = null, deferredPrompt = null;
 
-$('dateLabel').textContent = 'Aaj • ' + new Date().toLocaleDateString('hi-IN');
+$('dateLabel').textContent = 'आज • ' + new Date().toLocaleDateString('hi-IN');
 
 // BUILD MENU
 var grid = $('ogrid');
@@ -1391,12 +1449,12 @@ OPTIONS.forEach(function(opt) {
 });
 
 // CHIPS
-var CHIPS = ['Aur batao', 'Dawai ka naam', 'Kahan milegi', 'Kitna kharcha', 'Menu', 'Premium'];
+var CHIPS = ['और बताएं', 'दवाई का नाम', 'कहाँ मिलेगी', 'कितना खर्चा', 'मेनू', 'प्रीमियम'];
 CHIPS.forEach(function(chip) {
   var c = document.createElement('button'); c.className = 'chip'; c.textContent = chip;
   c.onclick = function() {
-    if (chip === 'Menu') showMenu();
-    else if (chip === 'Premium') $('payModal').classList.add('show');
+    if (chip === 'मेनू') showMenu();
+    else if (chip === 'प्रीमियम') $('payModal').classList.add('show');
     else sendMessage(chip);
   };
   chipsRow.appendChild(c);
@@ -1464,7 +1522,7 @@ function hideTyping() { var t = $('td'); if (t) t.remove(); }
 
 function shareOnWA(btn) {
   var msg = btn.getAttribute('data-msg') || '';
-  var text = 'KrishiBot ki Salah:\n\n' + msg + '\n\nKrishiBot - Aapka Digital Krishi Mitra\n' + window.location.origin;
+  var text = 'KrishiBot की सलाह:\n\n' + msg + '\n\nKrishiBot - आपका डिजिटल कृषि मित्र\n' + window.location.origin;
   window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
 }
 
@@ -1478,7 +1536,7 @@ async function callGemini(userText) {
   if (!navigator.onLine) {
     hideTyping();
     if (staticAns) { addBotMsg(staticAns); messages.push({ role: 'assistant', content: staticAns }); }
-    else addBotMsg('Internet nahi hai. Offline mein seedha topic chunen — kuch sawal ka jawab milega.');
+    else addBotMsg('इंटरनेट नहीं है। ऑफलाइन में सीधे विषय चुनें — कुछ सवालों का जवाब मिलेगा।');
     loading = false; sendBtn.textContent = '➤'; updBtn(); return;
   }
   var userCtx = userData ? ' Kisan ka naam: ' + userData.name + '. Gaon: ' + (userData.village || '') + '. Fasal: ' + (userData.crop || '') + '.' : '';
@@ -1493,16 +1551,16 @@ async function callGemini(userText) {
     if (data.error) {
       hideTyping();
       if (staticAns) { addBotMsg(staticAns); messages.push({ role: 'assistant', content: staticAns }); }
-      else addBotMsg('API Error: ' + data.error.message + ' -- Gemini Key check karen.');
+      else addBotMsg('API त्रुटि: ' + data.error.message);
     } else {
-      var reply = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) ? data.choices[0].message.content : 'Jawab nahi mila.';
+      var reply = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) ? data.choices[0].message.content : 'जवाब नहीं मिला।';
       messages.push({ role: 'assistant', content: reply });
       hideTyping(); addBotMsg(reply);
     }
   } catch (e) {
     hideTyping();
     if (staticAns) { addBotMsg(staticAns); messages.push({ role: 'assistant', content: staticAns }); }
-    else addBotMsg('Internet ki samasya hai. Dobara koshish karo.');
+    else addBotMsg('इंटरनेट की समस्या है। दोबारा कोशिश करें।');
   }
   loading = false; sendBtn.textContent = '➤'; updBtn();
 }
@@ -1514,12 +1572,12 @@ function sendMessage(text) {
   if ((!msg && !attachedImage) || loading) return;
   chatInput.value = ''; updBtn();
   attachRow.classList.remove('show'); plusBtn.classList.remove('open');
-  if (!chatScreen.classList.contains('show')) showChat('Seedha Sawal');
+  if (!chatScreen.classList.contains('show')) showChat('सीधा सवाल');
   if (attachedImage && attachedImageData) {
     var w = document.createElement('div'); w.className = 'mwrap user';
     w.innerHTML = '<div class="mbubble userb"><img src="' + attachedImageData + '" style="max-width:180px;border-radius:9px;display:block;margin-bottom:4px"/>' + (msg ? '<div>' + msg + '</div>' : '') + '<div class="mtime">' + getTime() + ' ✓✓</div></div>';
     chatScreen.appendChild(w); chatScreen.scrollTop = chatScreen.scrollHeight;
-    var photoMsg = (msg || 'Is photo mein kya samasya hai?') + ' -- Fasal/Pashu ki photo bheji hai. Photo dekhkar bimari, karan, dawai ka naam aur matra batao.';
+    var photoMsg = (msg || 'इस फोटो में क्या समस्या है?') + ' -- फसल/पशु की फोटो भेजी है। फोटो देखकर बीमारी, कारण, दवाई का नाम और मात्रा बताओ।';
     removePreview(); callGemini(photoMsg);
   } else if (attachedImage) {
     addUserMsg('File: ' + attachedImage.name + (msg ? ' -- ' + msg : ''));
@@ -1541,7 +1599,7 @@ function handleImage(file) {
     $('previewImg').src = attachedImageData; $('previewImg').style.display = '';
     $('previewText').textContent = file.name.length > 28 ? file.name.substring(0, 28) + '...' : file.name;
     previewBar.classList.add('show'); updBtn();
-    if (!chatScreen.classList.contains('show')) showChat('Photo Analysis');
+    if (!chatScreen.classList.contains('show')) showChat('फोटो विश्लेषण');
   };
   reader.readAsDataURL(file);
 }
@@ -1563,7 +1621,7 @@ $('fileInput').addEventListener('change', function(e) {
 function startVoice() {
   attachRow.classList.remove('show'); plusBtn.classList.remove('open');
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { addBotMsg('Voice ke liye Chrome Browser use karen.'); if (!chatScreen.classList.contains('show')) showChat('Voice'); return; }
+  if (!SR) { addBotMsg('आवाज़ के लिए Chrome Browser उपयोग करें।'); if (!chatScreen.classList.contains('show')) showChat('आवाज़'); return; }
   if (isRecording) { recognition && recognition.stop(); return; }
   recognition = new SR(); recognition.lang = voiceLang; recognition.continuous = false; recognition.interimResults = true;
   recognition.onstart = function() { isRecording = true; voiceBtn.textContent = '🔴'; voiceBtn.classList.add('recording'); chatInput.placeholder = window._voiceListeningText || 'Bol rahe hain...'; };
@@ -1581,14 +1639,14 @@ menuInput.addEventListener('input', function() { mSendBtn.classList.toggle('acti
 menuInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && menuInput.value.trim()) {
     var t = menuInput.value.trim(); menuInput.value = '';
-    if (!chatScreen.classList.contains('show')) showChat('Seedha Sawal');
+    if (!chatScreen.classList.contains('show')) showChat('सीधा सवाल');
     addUserMsg(t); callGemini(t);
   }
 });
 mSendBtn.onclick = function() {
   if (menuInput.value.trim()) {
     var t = menuInput.value.trim(); menuInput.value = '';
-    if (!chatScreen.classList.contains('show')) showChat('Seedha Sawal');
+    if (!chatScreen.classList.contains('show')) showChat('सीधा सवाल');
     addUserMsg(t); callGemini(t);
   }
 };
@@ -1607,8 +1665,8 @@ window.addEventListener('beforeinstallprompt', function(e) {
 });
 async function doInstall() {
   if (!deferredPrompt) {
-    addBotMsg('iPhone Install: Safari mein kholen > Share (square arrow) > Add to Home Screen > Add!');
-    if (!chatScreen.classList.contains('show')) showChat('Install'); return;
+    addBotMsg('iPhone पर इंस्टॉल: Safari में खोलें > Share (वर्ग तीर) > Add to Home Screen > Add करें!');
+    if (!chatScreen.classList.contains('show')) showChat('इंस्टॉल'); return;
   }
   deferredPrompt.prompt();
   var result = await deferredPrompt.userChoice;
