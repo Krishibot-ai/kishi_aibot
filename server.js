@@ -9,7 +9,7 @@ headers:{
 "Content-Type":"application/json"
 },
 body:JSON.stringify({
-model:"deepseek/deepseek-chat:free",
+model:"meta-llama/llama-3-8b-instruct:free",
 messages:[
 {role:"system",content:"You are an agriculture expert AI helping Indian farmers."},
 {role:"user",content:userText}
