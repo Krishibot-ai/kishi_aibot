@@ -1,28 +1,37 @@
-async function callAI(userText){
+const express = require('express');
+const cors = require('cors');
+const axios = require('axios');
 
-const API_KEY = process.env.OPENROUTER_API_KEY;
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-const response = await fetch("https://openrouter.ai/api/v1/chat/completions",{
-method:"POST",
-headers:{
-"Authorization":"Bearer "+API_KEY,
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-model:"meta-llama/llama-3-8b-instruct:free",
-messages:[
-{role:"system",content:"You are an agriculture expert AI helping Indian farmers."},
-{role:"user",content:userText}
-]
-})
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Define API endpoints
+app.get('/', (req, res) => {
+    res.send('Welcome to the Kishi AI Bot API!');
 });
 
-const data = await response.json();
+// Example endpoint for OpenRouter API integration
+app.post('/api/request', async (req, res) => {
+    const { input } = req.body;
+    try {
+        const response = await axios.post('https://api.openrouter.com/request', { input });
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error communicating with OpenRouter API:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
-if(data.choices && data.choices.length>0){
-return data.choices[0].message.content;
-}else{
-return "AI se answer nahi mila.";
-}
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
 
-}
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
